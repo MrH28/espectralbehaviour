@@ -26,7 +26,9 @@ lang: pt
 website:
   title: "Pipeline espectral Saturin Fhl"
   description: "Predição de argila do solo a partir de espectros Vis-NIR-SWIR com Python e Jupyter."
-  site-url: ""
+  site-url: "https://mrh28.github.io/espectralbehaviour/"
+  repo-url: "https://github.com/MrH28/espectralbehaviour"
+  repo-actions: [source, issue]
   search: true
   page-navigation: true
   back-to-top-navigation: true
