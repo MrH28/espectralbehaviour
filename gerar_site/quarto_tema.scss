@@ -1,0 +1,11 @@
+/*-- scss:defaults --*/
+$primary: #8a5a2b !default;
+$link-color: $primary !default;
+$font-family-sans-serif: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif !default;
+
+/*-- scss:rules --*/
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .75rem; margin: 1.5rem 0; }
+.kpis > div { border: 1px solid rgba(127,127,127,.3); border-radius: .5rem; padding: .8rem 1rem; }
+.kpis b { display: block; font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.kpis span { opacity: .75; font-size: .88rem; }
+table { font-variant-numeric: tabular-nums; }

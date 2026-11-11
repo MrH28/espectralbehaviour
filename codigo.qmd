@@ -1,0 +1,330 @@
+---
+title: "Código-fonte"
+description: "Módulos Python importados pelos notebooks."
+---
+
+## `config.py`
+
+Caminhos e parâmetros do dataset e de todas as etapas. [Baixar](config.py){download="config.py"}
+
+```{.python filename="config.py"}
+"""Configuração do pipeline espectral Saturin: caminhos e parâmetros das etapas.
+
+Todos os notebooks importam este arquivo (`import config as cfg`). Para usar outro
+banco ou mudar uma decisão metodológica, altere aqui e rode os notebooks de novo.
+Os caminhos são relativos à pasta do projeto e os CSVs são lidos em latin1.
+"""
+
+from pathlib import Path
+
+# --- Arquivos ---------------------------------------------------------------
+ARQUIVO = Path("dados/raw_nir_data_Saturin.csv")
+ARQUIVO_MIR = Path("dados/raw_mir_data_Saturin.csv")
+ARQUIVO_NOVAS = None                                # não há amostras sem análise na pasta dados
+ENCODING = "latin1"
+MAX_AMOSTRAS = 5000                                # 0 = usar todas as amostras
+PASTA = Path("resultados")                          # saídas de cada notebook
+PASTA_FIG = PASTA / "figuras"
+
+# --- Colunas ----------------------------------------------------------------
+COL_ID = "ID_Unico"
+COL_ALVO = "Clay_gkg"
+PREFIXO = ""                                      # ex.: "X" para bandas X350, X351, ...
+
+# --- Reprodutibilidade ------------------------------------------------------------
+SEED = 42
+
+# --- Pré-processamento (notebook 02) -----------------------------------------
+WL_MIN, WL_MAX = 450, 2450     # corte das bordas ruidosas (nm)
+SG_JANELA = 11                 # janela do Savitzky-Golay (nº ímpar de bandas)
+SG_GRAU = 2                    # grau do polinômio do Savitzky-Golay
+
+# --- Outliers (notebook 02) ----------------------------------------------------
+Z_OUTLIER = 3                  # limite do z-score do espectro médio
+N_PCS_OUTLIER = 5              # PCs usados no T² e no Q
+PERC_OUTLIER = 99              # percentil que define os limites de T² e Q
+
+# --- PCA e clusterização (notebook 03) ------------------------------------------
+N_PCS_EXPLORA = 10             # PCs da análise exploratória
+N_PCS_CLUSTER = 5              # PCs usados no k-means
+K_MAX = 10                     # maior k testado no cotovelo e na silhueta
+K = 3                          # número de grupos escolhido
+
+# --- Modelagem (notebook 04) --------------------------------------------------
+TEST_SIZE = 0.3                # fração para validação (divisão estratificada por grupo)
+CV_FOLDS = 10                  # partições da validação cruzada
+MAX_LV = 20                    # maior nº de variáveis latentes testado no PLSR
+TRATAMENTOS = ("sg", "d1", "snv")
+TRATAMENTO_FIXO = None         # None = escolhe pelo menor RMSECV; ou 'sg', 'd1', 'snv'
+
+BUSCA_RF = True                # busca aleatória de hiperparâmetros do Random Forest
+N_ITER_BUSCA = 15              # combinações testadas na busca
+N_ARVORES = 300                # árvores do Random Forest
+N_PCS_RF = 20                  # PCs de entrada do Random Forest quando BUSCA_RF = False
+
+# --- Domínio de aplicação (notebooks 04 e 05) ------------------------------------
+N_PCS_DOMINIO = 5              # PCs do PCA do domínio
+PERC_DOMINIO = 99              # percentil da calibração que define os limites de T² e Q
+```
+
+## `utils.py`
+
+Bandas, pré-processamento, métricas, T², Q, VIP e reamostragem. [Baixar](utils.py){download="utils.py"}
+
+```{.python filename="utils.py"}
+"""Funções do pipeline espectral: leitura, pré-processamento e métricas.
+
+Os valores-padrão dos parâmetros são lidos de config.py **no momento da chamada**:
+se você mudar cfg.WL_MIN no notebook, a próxima chamada já usa o novo valor.
+"""
+
+import numpy as np
+from scipy.signal import savgol_filter
+
+import config as cfg
+
+TRATAMENTOS_VALIDOS = ("abs", "sg", "d1", "snv")
+
+
+# --- Leitura -----------------------------------------------------------------
+
+def identificar_colunas(df, prefixo=""):
+    """Separa as colunas espectrais (nome = comprimento de onda) das de referência.
+
+    Retorna (cols_esp, cols_ref).
+    """
+    def eh_banda(c):
+        nome = str(c)
+        if prefixo and not nome.startswith(prefixo):
+            return False
+        banda = nome[len(prefixo):]
+        try:
+            float(banda)
+        except ValueError:
+            return False
+        return True
+
+    cols_esp = [c for c in df.columns if eh_banda(c)]
+    cols_ref = [c for c in df.columns if c not in cols_esp]
+    return cols_esp, cols_ref
+
+
+def comprimentos_onda(cols_esp, prefixo=""):
+    """Converte os nomes das colunas espectrais em comprimentos de onda (nm).
+
+    Exige ordem crescente: se as colunas estiverem fora de ordem, o erro aparece
+    aqui, e não silenciosamente nos gráficos e nos filtros.
+    """
+    if not cols_esp:
+        raise ValueError("Nenhuma coluna espectral foi encontrada.")
+    wl = np.array([float(str(c)[len(prefixo):]) for c in cols_esp])
+    if np.any(np.diff(wl) <= 0):
+        raise ValueError("As colunas espectrais precisam estar em ordem crescente de comprimento de onda.")
+    return wl
+
+
+# --- Pré-processamento ---------------------------------------------------------
+
+def corta(X, wl, wl_min=None, wl_max=None):
+    """Mantém as bandas entre wl_min e wl_max (inclusive). Retorna (wl_cortado, X_cortado)."""
+    wl_min = cfg.WL_MIN if wl_min is None else wl_min
+    wl_max = cfg.WL_MAX if wl_max is None else wl_max
+    X = np.asarray(X, dtype=float)
+    wl = np.asarray(wl, dtype=float)
+    if X.ndim != 2 or X.shape[1] != len(wl):
+        raise ValueError("X deve ter uma coluna para cada comprimento de onda.")
+    mask = (wl >= wl_min) & (wl <= wl_max)
+    return wl[mask], np.asarray(X, dtype=float)[:, mask]
+
+
+def snv(A):
+    """Standard Normal Variate: centra e escala cada espectro (linha) pela própria média e desvio."""
+    A = np.asarray(A, dtype=float)
+    dp = A.std(axis=1, keepdims=True)
+    if np.any(dp <= np.finfo(float).eps):
+        raise ValueError("Há espectros constantes (desvio-padrão zero): o SNV não pode ser aplicado a eles.")
+    return (A - A.mean(axis=1, keepdims=True)) / dp
+
+
+def preprocessa(X, wl, tratamento="snv", wl_min=None, wl_max=None, janela=None, grau=None):
+    """Aplica a sequência de pré-processamento do projeto. Retorna (wl_cortado, X_tratado).
+
+    tratamento:
+      'abs' -> corte + absorbância, log10(1/R)
+      'sg'  -> 'abs' + suavização de Savitzky-Golay
+      'd1'  -> 'abs' + 1ª derivada de Savitzky-Golay
+      'snv' -> 'sg' + SNV
+    """
+    if tratamento not in TRATAMENTOS_VALIDOS:
+        raise ValueError(f"tratamento deve ser um de {TRATAMENTOS_VALIDOS}, não {tratamento!r}")
+    janela = cfg.SG_JANELA if janela is None else janela
+    grau = cfg.SG_GRAU if grau is None else grau
+
+    wl_c, Xc = corta(X, wl, wl_min, wl_max)
+    A = np.log10(1 / np.clip(Xc, 1e-6, None))
+    if tratamento == "abs":
+        return wl_c, A
+    if tratamento == "d1":
+        return wl_c, savgol_filter(A, janela, grau, deriv=1, axis=1)
+    A_sg = savgol_filter(A, janela, grau, deriv=0, axis=1)
+    return wl_c, (A_sg if tratamento == "sg" else snv(A_sg))
+
+
+def reamostra(X, wl_de, wl_para):
+    """Interpola cada espectro da grade wl_de para a grade wl_para (ex.: outro sensor)."""
+    X = np.atleast_2d(np.asarray(X, dtype=float))
+    wl_de = np.asarray(wl_de, dtype=float)
+    wl_para = np.asarray(wl_para, dtype=float)
+    if X.shape[1] != len(wl_de):
+        raise ValueError("X deve ter uma coluna para cada comprimento de onda de origem.")
+    if len(wl_de) < 2 or np.any(np.diff(wl_de) <= 0):
+        raise ValueError("A grade de origem deve ter pelo menos dois comprimentos crescentes.")
+    if wl_para.min() < wl_de.min() or wl_para.max() > wl_de.max():
+        raise ValueError("A grade de destino deve estar contida na grade de origem.")
+    return np.vstack([np.interp(wl_para, wl_de, linha) for linha in X])
+
+
+# --- Métricas --------------------------------------------------------------------
+
+def avalia(y_obs, y_pred):
+    """R², RMSE, RPD, RPIQ e viés de um conjunto de predições."""
+    y_obs = np.asarray(y_obs, dtype=float).ravel()
+    y_pred = np.asarray(y_pred, dtype=float).ravel()
+    rmse = float(np.sqrt(np.mean((y_obs - y_pred) ** 2)))
+    q75, q25 = np.percentile(y_obs, [75, 25])
+    ss_tot = np.sum((y_obs - y_obs.mean()) ** 2)
+    r2 = np.nan if ss_tot == 0 else 1 - np.sum((y_obs - y_pred) ** 2) / ss_tot
+    return {
+        "R2": float(r2),
+        "RMSE": rmse,
+        "RPD": float(y_obs.std() / rmse),
+        "RPIQ": float((q75 - q25) / rmse),
+        "Viés": float(np.mean(y_pred - y_obs)),
+    }
+
+
+# --- T², Q e VIP ---------------------------------------------------------------------
+
+def t2_q(pca, X):
+    """T² de Hotelling e resíduo Q de cada amostra em relação a um PCA já ajustado."""
+    X = np.asarray(X, dtype=float)
+    sc = pca.transform(X)
+    t2 = ((sc ** 2) / pca.explained_variance_).sum(axis=1)
+    q = ((X - pca.inverse_transform(sc)) ** 2).sum(axis=1)
+    return t2, q
+
+
+def vip(pls):
+    """Variable Importance in Projection de um PLSRegression ajustado (VIP > 1 = banda relevante)."""
+    t, w, q = pls.x_scores_, pls.x_weights_, pls.y_loadings_
+    p = w.shape[0]
+    ss = (q ** 2).sum(axis=0) * (t ** 2).sum(axis=0)
+    wn = (w / np.linalg.norm(w, axis=0)) ** 2
+    return np.sqrt(p * (wn @ ss) / ss.sum())
+
+
+# --- Figuras --------------------------------------------------------------------
+
+def salva_figura(fig, nome):
+    """Salva a figura em resultados/figuras/ (PNG, 150 dpi) e devolve o caminho."""
+    cfg.PASTA_FIG.mkdir(parents=True, exist_ok=True)
+    caminho = cfg.PASTA_FIG / nome
+    fig.savefig(caminho, dpi=150, bbox_inches="tight")
+    return caminho
+```
+
+## `gerar_dados_sinteticos.py`
+
+Gera um banco sintético no formato da BSSL para praticar. [Baixar](gerar_dados_sinteticos.py){download="gerar_dados_sinteticos.py"}
+
+```{.python filename="gerar_dados_sinteticos.py"}
+"""Gera um banco sintético no formato da BSSL para praticar sem o banco real.
+
+    python gerar_dados_sinteticos.py
+
+Cria, na pasta dados/:
+  bssl.csv           900 amostras: id, argila, mo e 431 bandas (350 a 2500 nm, passo de 5 nm)
+  novas_amostras.csv 50 amostras novas (id e bandas), da mesma distribuição, sem análise
+
+Como os espectros foram construídos (para saber o que esperar dos resultados):
+  - reflectância crescente com o comprimento de onda, entre ~0,06 e ~0,5;
+  - feições de absorção simuladas apenas perto de 1400, 1900 e 2200 nm, mais profundas
+    quanto maior a argila (relação praticamente linear em absorbância);
+  - espalhamento e matéria orgânica (mo) escurecem o espectro inteiro de forma
+    multiplicativa, o que vira um deslocamento constante em absorbância (o SNV remove);
+  - ruído baixo, amplificado nas bordas (abaixo de 450 e acima de 2450 nm);
+  - 40 amostras sem argila e 8 espectros anômalos de propósito (S0000 a S0007).
+
+Os dados são "bem comportados" de propósito: servem para ver o efeito de cada etapa,
+e os números obtidos com eles NÃO são resultados científicos.
+"""
+
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+import config as cfg
+
+N_AMOSTRAS = 900
+N_NOVAS = 50
+N_ANOMALOS = 8
+N_SEM_ARGILA = 40
+WL = np.arange(350, 2501, 5)              # 431 bandas
+
+
+def _gauss(centro, largura):
+    return np.exp(-0.5 * ((WL - centro) / largura) ** 2)
+
+
+def gerar_espectros(rng, n):
+    """Atributos e reflectâncias de n amostras normais."""
+    argila = np.clip(rng.beta(1.5, 2.6, n) * 100, 1.0, 99.0)
+    mo = rng.gamma(3.3, 6.0, n)
+
+    # forma geral: reflectância que cresce com o comprimento de onda
+    base = 0.10 + 0.32 * (1 - np.exp(-(WL - 330) / 650))
+    # feições ligadas à argila (OH e água em 1400 e 1900 nm; Al-OH em 2200 nm)
+    feicoes = 0.15 * _gauss(1415, 30) + 0.32 * _gauss(1915, 45) + 0.24 * _gauss(2205, 30)
+    absorcao = (argila / 100)[:, None] * feicoes[None, :]
+    # espalhamento e matéria orgânica: fator multiplicativo no espectro inteiro
+    escurecimento = np.exp(-0.013 * mo + rng.normal(0, 0.12, n))
+    R = base[None, :] * np.exp(-absorcao) * escurecimento[:, None]
+
+    ruido = np.where((WL < 450) | (WL > 2450), 0.010, 0.0015)
+    R = R + rng.normal(0, 1, R.shape) * ruido[None, :]
+    # erro do laboratório: a argila "medida" difere um pouco da que gerou o espectro
+    argila_medida = np.clip(argila + rng.normal(0, 2.8, n), 0.5, 100)
+    return np.clip(R, 0.01, 1.0), argila_medida, mo
+
+
+def main():
+    rng = np.random.default_rng(cfg.SEED)
+    R, argila, mo = gerar_espectros(rng, N_AMOSTRAS)
+
+    # espectros anômalos (reflectâncias altas e formas irregulares) nas primeiras linhas
+    R[:N_ANOMALOS] = rng.uniform(0.05, 0.9, (N_ANOMALOS, len(WL)))
+    # atributo-alvo faltante em 40 amostras normais
+    argila = argila.astype(float)
+    argila[rng.choice(np.arange(N_ANOMALOS, N_AMOSTRAS), N_SEM_ARGILA, replace=False)] = np.nan
+
+    df = pd.DataFrame(R.round(5), columns=[str(w) for w in WL])
+    df.insert(0, "mo", mo.round(2))
+    df.insert(0, "argila", np.round(argila, 2))
+    df.insert(0, "id", [f"S{i:04d}" for i in range(N_AMOSTRAS)])
+
+    Rn, _, _ = gerar_espectros(np.random.default_rng(cfg.SEED + 1), N_NOVAS)
+    novas = pd.DataFrame(Rn.round(5), columns=[str(w) for w in WL])
+    novas.insert(0, "id", [f"N{i:04d}" for i in range(N_NOVAS)])
+
+    Path(cfg.ARQUIVO).parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(cfg.ARQUIVO, index=False)
+    novas.to_csv(cfg.ARQUIVO_NOVAS, index=False)
+    print(f"{cfg.ARQUIVO}: {df.shape[0]} amostras, {len(WL)} bandas ({WL[0]}-{WL[-1]} nm), "
+          f"{df['argila'].isna().sum()} sem {cfg.COL_ALVO}, {N_ANOMALOS} espectros anômalos")
+    print(f"{cfg.ARQUIVO_NOVAS}: {novas.shape[0]} amostras novas")
+
+
+if __name__ == "__main__":
+    main()
+```

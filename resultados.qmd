@@ -1,0 +1,56 @@
+---
+title: "Resultados"
+description: "Métricas dos modelos e figuras geradas pelos notebooks."
+---
+
+Alvo: argila (g/kg). Amostra aleatória de 5000 linhas do arquivo NIR (SEED = 42).
+Arquivos: [metricas.csv](resultados/metricas.csv){download="metricas.csv"} ·
+[predicoes_validacao.csv](resultados/predicoes_validacao.csv){download="predicoes_validacao.csv"}
+
+## Métricas
+
+{{< include _metricas.md >}}
+
+## 01 · Leitura e exploração
+
+::: {layout-ncol=3}
+![Espectros brutos](resultados/figuras/01_espectros_brutos.png){group="g01"}
+
+![Distribuição da argila](resultados/figuras/01_distribuicao_alvo.png){group="g01"}
+
+![Correlação por banda](resultados/figuras/01_correlacao_bandas.png){group="g01"}
+:::
+
+## 02 · Pré-processamento e outliers
+
+::: {layout-ncol=2}
+![Etapas do pré-processamento](resultados/figuras/02_etapas_preprocessamento.png){group="g02"}
+
+![Outliers: z-score, T² e Q](resultados/figuras/02_outliers.png){group="g02"}
+:::
+
+## 03 · PCA e clusterização
+
+::: {layout-ncol=2}
+![Variância explicada](resultados/figuras/03_variancia_pca.png){group="g03"}
+
+![Escores e loadings](resultados/figuras/03_escores_loadings.png){group="g03"}
+
+![Cotovelo e silhueta](resultados/figuras/03_cotovelo_silhueta.png){group="g03"}
+
+![Grupos do k-means](resultados/figuras/03_clusters.png){group="g03"}
+:::
+
+## 04 · Modelagem
+
+![RMSECV do PLSR por tratamento e nº de variáveis latentes](resultados/figuras/04_rmsecv_plsr.png)
+
+## 05 · Visualização e interpretação
+
+![Observado × predito (validação)](resultados/figuras/05_observado_predito.png){group="g05"}
+
+::: {layout-ncol=2}
+![Coeficientes e VIP do PLSR](resultados/figuras/05_plsr_coef_vip.png){group="g05"}
+
+![Importância no Random Forest](resultados/figuras/05_rf_importancia.png){group="g05"}
+:::

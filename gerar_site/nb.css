@@ -1,0 +1,14 @@
+:root{--bg:#f7f6f2;--ink:#1d2321;--muted:#5f6a66;--line:#e2e0d8;--accent:#8a5a2b;--accent-ink:#fff;--accent-soft:#f1e7da;
+ --font:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+body.jp-Notebook{padding-top:0!important;background:#fff}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+.topo{position:sticky;top:0;z-index:50;background:rgba(247,246,242,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);font:16px/1.6 var(--font);margin:0 -16px}
+.topo-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;flex-wrap:wrap}
+.marca{font-weight:650;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:7px;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.topo nav{display:flex;gap:4px;flex-wrap:wrap}
+.topo nav a{color:var(--muted);text-decoration:none;padding:6px 10px;border-radius:6px;font-size:.93rem}
+.topo nav a:hover,.topo nav a.active{color:var(--ink);background:var(--accent-soft)}
+.nbbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;flex-wrap:wrap;font:15px/1.5 var(--font)}
+.nbbar a{color:var(--accent);text-decoration:none}
+.nbbar .etapa{color:var(--muted);font-size:.9rem}

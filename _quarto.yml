@@ -1,0 +1,92 @@
+project:
+  type: website
+  output-dir: _site
+  pre-render: gerar_site/quarto_pre_render.py
+  render:
+    - index.qmd
+    - 01_leitura_exploratoria.ipynb
+    - 02_preprocessamento.ipynb
+    - 03_pca_clusterizacao.ipynb
+    - 04_modelagem.ipynb
+    - 05_visualizacao_predicao.ipynb
+    - resultados.qmd
+    - codigo.qmd
+    - como-usar.qmd
+  resources:
+    - "*.ipynb"
+    - config.py
+    - utils.py
+    - gerar_dados_sinteticos.py
+    - requirements.txt
+    - resultados/metricas.csv
+    - resultados/predicoes_validacao.csv
+
+lang: pt
+
+website:
+  title: "Pipeline espectral Saturin Fhl"
+  description: "Predição de argila do solo a partir de espectros Vis-NIR-SWIR com Python e Jupyter."
+  site-url: ""
+  search: true
+  page-navigation: true
+  back-to-top-navigation: true
+  bread-crumbs: true
+  navbar:
+    left:
+      - text: Início
+        href: index.qmd
+      - text: Notebooks
+        href: 01_leitura_exploratoria.ipynb
+      - text: Resultados
+        href: resultados.qmd
+      - text: Código
+        href: codigo.qmd
+      - text: Como usar
+        href: como-usar.qmd
+    right:
+      - icon: book
+        href: https://geocis.github.io/geocis_tutorial/
+        aria-label: Tutorial Espectroscopia de Solos com Python
+  sidebar:
+    style: docked
+    collapse-level: 2
+    contents:
+      - text: Início
+        href: index.qmd
+      - section: "Notebooks"
+        contents:
+          - text: "01 · Leitura e exploração"
+            href: 01_leitura_exploratoria.ipynb
+          - text: "02 · Pré-processamento e outliers"
+            href: 02_preprocessamento.ipynb
+          - text: "03 · PCA e clusterização"
+            href: 03_pca_clusterizacao.ipynb
+          - text: "04 · Modelagem: PLSR e RF"
+            href: 04_modelagem.ipynb
+          - text: "05 · Visualização e predição"
+            href: 05_visualizacao_predicao.ipynb
+      - text: Resultados
+        href: resultados.qmd
+      - text: Código-fonte
+        href: codigo.qmd
+      - text: Como usar
+        href: como-usar.qmd
+  page-footer:
+    left: "Pipeline espectral Saturin Fhl"
+    right: "Feito com [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme:
+      light: [cosmo, gerar_site/quarto_tema.scss]
+      dark: [darkly, gerar_site/quarto_tema.scss]
+    toc: true
+    toc-title: "Nesta página"
+    code-copy: true
+    code-overflow: wrap
+    lightbox: auto
+    notebook-links: global
+
+execute:
+  enabled: false
+  freeze: auto

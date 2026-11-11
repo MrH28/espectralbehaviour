@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+dados/
+resultados/*.npz
+resultados/*.pkl
+resultados/*.joblib
+_site/
+/.quarto/
+site/
+gerar_site/netlify_site.json
+
+**/*.quarto_ipynb
