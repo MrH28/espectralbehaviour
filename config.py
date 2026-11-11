@@ -21,6 +21,8 @@ COL_ID = "ID_Unico"
 COL_ALVO = "Clay_gkg"
 PREFIXO = ""                                      # ex.: "X" para bandas X350, X351, ...
 
+COLS_OCULTAS = ('Owner', 'X', 'Y', 'Country')  # não exibidas nas tabelas (autoria e localização)
+
 # --- Reprodutibilidade ------------------------------------------------------------
 SEED = 42
 
