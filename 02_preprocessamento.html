@@ -570,7 +570,7 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <h2 class="anchored" data-anchor-id="remoção-e-salvamento">3. Remoção e salvamento</h2>
 <p>As amostras sinalizadas são listadas para inspeção e removidas. As variáveis da seção 2 (<code>X_suav</code>, <code>z</code>, <code>t2</code>, <code>q</code>, <code>out</code>, <code>df</code>) continuam com todas as amostras; as versões filtradas ganham o sufixo <code>_pp</code>.</p>
 <div id="36333799" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-11-11T14:57:54.416521Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-11-11T14:57:54.416315Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-11-11T14:57:54.485593Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-11-11T14:57:54.484791Z&quot;}}" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>display(df.loc[out, cols_ref])</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>display(df.loc[out, [c <span class="cf">for</span> c <span class="kw">in</span> cols_ref <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> cfg.COLS_OCULTAS]])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df_pp <span class="op">=</span> df.loc[<span class="op">~</span>out, cols_ref].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>y_pp <span class="op">=</span> y[<span class="op">~</span>out]</span>
@@ -589,16 +589,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">ID_Unico</th>
-<th data-quarto-table-cell-role="th">Owner</th>
-<th data-quarto-table-cell-role="th">X</th>
-<th data-quarto-table-cell-role="th">Y</th>
-<th data-quarto-table-cell-role="th">Country</th>
 <th data-quarto-table-cell-role="th">Upper_depth_cm</th>
 <th data-quarto-table-cell-role="th">Lower_depth_cm</th>
 <th data-quarto-table-cell-role="th">Sand_gkg</th>
 <th data-quarto-table-cell-role="th">Silt_gkg</th>
 <th data-quarto-table-cell-role="th">Clay_gkg</th>
-<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Density_kgdm3</th>
 <th data-quarto-table-cell-role="th">C_gkg</th>
 <th data-quarto-table-cell-role="th">OM_gkg</th>
 <th data-quarto-table-cell-role="th">P_mgkg</th>
@@ -615,16 +611,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">61</th>
 <td>75026</td>
-<td>ICRAF.ISRIC</td>
-<td>-76.583333</td>
-<td>21.166667</td>
-<td>NaN</td>
 <td>90.0</td>
 <td>150.0</td>
 <td>496.000000</td>
 <td>280.000000</td>
 <td>223.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -639,16 +631,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">156</th>
 <td>73843</td>
-<td>ICRAF.ISRIC</td>
-<td>-36.533333</td>
-<td>-9.933333</td>
-<td>NaN</td>
 <td>147.0</td>
 <td>177.0</td>
 <td>644.000000</td>
 <td>43.000000</td>
 <td>313.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -663,16 +651,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">194</th>
 <td>5442</td>
-<td>Nikolaos Tziolas</td>
-<td>39.336190</td>
-<td>39.356690</td>
-<td>Turkey</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>144.130674</td>
 <td>91.244065</td>
 <td>764.625261</td>
-<td>...</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>2.359155</td>
 <td>NaN</td>
@@ -687,16 +671,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">205</th>
 <td>63891</td>
-<td>R. Poppiel / Dematte</td>
-<td>53.206633</td>
-<td>30.131850</td>
-<td>Iran</td>
 <td>0.0</td>
 <td>10.0</td>
 <td>420.720000</td>
 <td>250.000000</td>
 <td>329.280000</td>
-<td>...</td>
+<td>NaN</td>
 <td>14.501160</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -711,16 +691,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">227</th>
 <td>65805</td>
-<td>K. Singh</td>
-<td>152.016733</td>
-<td>-4.298367</td>
-<td>Papua new guinea</td>
 <td>60.0</td>
 <td>90.0</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>60.600000</td>
-<td>...</td>
+<td>NaN</td>
 <td>2.100000</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -735,16 +711,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">239</th>
 <td>75463</td>
-<td>ICRAF.ISRIC</td>
-<td>-73.445000</td>
-<td>-4.063611</td>
-<td>NaN</td>
 <td>125.0</td>
 <td>150.0</td>
 <td>13.000000</td>
 <td>397.000000</td>
 <td>590.000000</td>
-<td>...</td>
+<td>1.37</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -759,16 +731,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">241</th>
 <td>129</td>
-<td>Sabine Grunwald</td>
-<td>78.106005</td>
-<td>17.384766</td>
-<td>India</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>203.100000</td>
 <td>186.900000</td>
 <td>610.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>21.700000</td>
 <td>NaN</td>
 <td>8.310</td>
@@ -783,16 +751,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">292</th>
 <td>54591</td>
-<td>Emmanuelle Vandour</td>
-<td>2.043631</td>
-<td>48.821496</td>
-<td>France</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>249.000000</td>
 <td>379.000000</td>
 <td>356.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>18.300000</td>
 <td>31.700000</td>
 <td>0.071</td>
@@ -807,16 +771,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">318</th>
 <td>63890</td>
-<td>R. Poppiel / Dematte</td>
-<td>53.229931</td>
-<td>30.142877</td>
-<td>Iran</td>
 <td>0.0</td>
 <td>10.0</td>
 <td>300.720000</td>
 <td>320.000000</td>
 <td>379.280000</td>
-<td>...</td>
+<td>NaN</td>
 <td>16.299304</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -831,16 +791,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">373</th>
 <td>54593</td>
-<td>Emmanuelle Vandour</td>
-<td>2.045132</td>
-<td>48.822563</td>
-<td>France</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>269.000000</td>
 <td>511.000000</td>
 <td>220.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>14.400000</td>
 <td>24.900000</td>
 <td>0.122</td>
@@ -855,16 +811,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">395</th>
 <td>64051</td>
-<td>R. Poppiel / Dematte</td>
-<td>55.389219</td>
-<td>28.874004</td>
-<td>Iran</td>
 <td>0.0</td>
 <td>10.0</td>
 <td>658.400000</td>
 <td>260.000000</td>
 <td>81.600000</td>
-<td>...</td>
+<td>NaN</td>
 <td>0.910000</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -879,16 +831,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">484</th>
 <td>74096</td>
-<td>ICRAF.ISRIC</td>
-<td>-76.933333</td>
-<td>-0.516667</td>
-<td>NaN</td>
 <td>42.0</td>
 <td>65.0</td>
 <td>46.000000</td>
 <td>106.000000</td>
 <td>848.000000</td>
-<td>...</td>
+<td>1.01</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -903,16 +851,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">554</th>
 <td>5</td>
-<td>Sabine Grunwald</td>
-<td>78.120025</td>
-<td>17.371776</td>
-<td>India</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>236.000000</td>
 <td>234.000000</td>
 <td>530.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>16.600000</td>
 <td>NaN</td>
 <td>15.070</td>
@@ -927,16 +871,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">625</th>
 <td>77771</td>
-<td>ICRAF.ISRIC</td>
-<td>30.383333</td>
-<td>-29.666667</td>
-<td>NaN</td>
 <td>45.0</td>
 <td>70.0</td>
 <td>98.000000</td>
 <td>408.000000</td>
 <td>493.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -951,16 +891,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">690</th>
 <td>76315</td>
-<td>ICRAF.ISRIC</td>
-<td>98.666667</td>
-<td>2.266667</td>
-<td>NaN</td>
 <td>50.0</td>
 <td>125.0</td>
 <td>665.000000</td>
 <td>193.000000</td>
 <td>141.000000</td>
-<td>...</td>
+<td>0.79</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -975,16 +911,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">739</th>
 <td>77059</td>
-<td>ICRAF.ISRIC</td>
-<td>101.616667</td>
-<td>-1.233333</td>
-<td>NaN</td>
 <td>300.0</td>
 <td>400.0</td>
 <td>39.000000</td>
 <td>79.000000</td>
 <td>882.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -999,16 +931,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">770</th>
 <td>62</td>
-<td>Sabine Grunwald</td>
-<td>78.108532</td>
-<td>17.377085</td>
-<td>India</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>184.000000</td>
 <td>156.000000</td>
 <td>660.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>22.900000</td>
 <td>NaN</td>
 <td>9.860</td>
@@ -1023,16 +951,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">779</th>
 <td>54603</td>
-<td>Emmanuelle Vandour</td>
-<td>1.947302</td>
-<td>48.848947</td>
-<td>France</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>105.000000</td>
 <td>345.000000</td>
 <td>217.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>14.100000</td>
 <td>24.400000</td>
 <td>0.045</td>
@@ -1047,16 +971,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">968</th>
 <td>5403</td>
-<td>Nikolaos Tziolas</td>
-<td>32.718710</td>
-<td>40.104091</td>
-<td>Turkey</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>782.252989</td>
 <td>144.584015</td>
 <td>73.162996</td>
-<td>...</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>6.491349</td>
 <td>NaN</td>
@@ -1071,16 +991,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">972</th>
 <td>54601</td>
-<td>Emmanuelle Vandour</td>
-<td>1.946708</td>
-<td>48.850459</td>
-<td>France</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>120.000000</td>
 <td>577.000000</td>
 <td>276.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>17.600000</td>
 <td>30.400000</td>
 <td>NaN</td>
@@ -1095,16 +1011,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">978</th>
 <td>54643</td>
-<td>Emmanuelle Vandour</td>
-<td>1.939436</td>
-<td>48.882820</td>
-<td>France</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>264.000000</td>
 <td>528.000000</td>
 <td>208.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>12.700000</td>
 <td>22.000000</td>
 <td>0.047</td>
@@ -1119,16 +1031,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">984</th>
 <td>75098</td>
-<td>ICRAF.ISRIC</td>
-<td>-7.333333</td>
-<td>5.883333</td>
-<td>NaN</td>
 <td>100.0</td>
 <td>120.0</td>
 <td>542.000000</td>
 <td>213.000000</td>
 <td>246.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>NaN</td>
@@ -1143,16 +1051,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">1048</th>
 <td>54639</td>
-<td>Emmanuelle Vandour</td>
-<td>1.940125</td>
-<td>48.886690</td>
-<td>France</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>346.000000</td>
 <td>503.000000</td>
 <td>151.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>10.800000</td>
 <td>18.700000</td>
 <td>0.041</td>
@@ -1167,16 +1071,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1049</th>
 <td>54604</td>
-<td>Emmanuelle Vandour</td>
-<td>1.946511</td>
-<td>48.850796</td>
-<td>France</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>111.000000</td>
 <td>575.000000</td>
 <td>267.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>19.100000</td>
 <td>33.000000</td>
 <td>NaN</td>
@@ -1191,16 +1091,12 @@ Total sinalizado (qualquer critério): 25</code></pre>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">1083</th>
 <td>54648</td>
-<td>Emmanuelle Vandour</td>
-<td>1.912548</td>
-<td>48.827661</td>
-<td>France</td>
 <td>NaN</td>
 <td>NaN</td>
 <td>129.000000</td>
 <td>671.000000</td>
 <td>200.000000</td>
-<td>...</td>
+<td>NaN</td>
 <td>14.300000</td>
 <td>24.700000</td>
 <td>0.115</td>
@@ -1215,7 +1111,6 @@ Total sinalizado (qualquer critério): 25</code></pre>
 </tbody>
 </table>
 
-<p>25 rows × 21 columns</p>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">

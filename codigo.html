@@ -494,40 +494,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>COL_ALVO <span class="op">=</span> <span class="st">"Clay_gkg"</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>PREFIXO <span class="op">=</span> <span class="st">""</span>                                      <span class="co"># ex.: "X" para bandas X350, X351, ...</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Reprodutibilidade ------------------------------------------------------------</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>SEED <span class="op">=</span> <span class="dv">42</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Pré-processamento (notebook 02) -----------------------------------------</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>WL_MIN, WL_MAX <span class="op">=</span> <span class="dv">450</span>, <span class="dv">2450</span>     <span class="co"># corte das bordas ruidosas (nm)</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>SG_JANELA <span class="op">=</span> <span class="dv">11</span>                 <span class="co"># janela do Savitzky-Golay (nº ímpar de bandas)</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>SG_GRAU <span class="op">=</span> <span class="dv">2</span>                    <span class="co"># grau do polinômio do Savitzky-Golay</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Outliers (notebook 02) ----------------------------------------------------</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Z_OUTLIER <span class="op">=</span> <span class="dv">3</span>                  <span class="co"># limite do z-score do espectro médio</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>N_PCS_OUTLIER <span class="op">=</span> <span class="dv">5</span>              <span class="co"># PCs usados no T² e no Q</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>PERC_OUTLIER <span class="op">=</span> <span class="dv">99</span>              <span class="co"># percentil que define os limites de T² e Q</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># --- PCA e clusterização (notebook 03) ------------------------------------------</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>N_PCS_EXPLORA <span class="op">=</span> <span class="dv">10</span>             <span class="co"># PCs da análise exploratória</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>N_PCS_CLUSTER <span class="op">=</span> <span class="dv">5</span>              <span class="co"># PCs usados no k-means</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>K_MAX <span class="op">=</span> <span class="dv">10</span>                     <span class="co"># maior k testado no cotovelo e na silhueta</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">3</span>                          <span class="co"># número de grupos escolhido</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Modelagem (notebook 04) --------------------------------------------------</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>TEST_SIZE <span class="op">=</span> <span class="fl">0.3</span>                <span class="co"># fração para validação (divisão estratificada por grupo)</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>CV_FOLDS <span class="op">=</span> <span class="dv">10</span>                  <span class="co"># partições da validação cruzada</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>MAX_LV <span class="op">=</span> <span class="dv">20</span>                    <span class="co"># maior nº de variáveis latentes testado no PLSR</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>TRATAMENTOS <span class="op">=</span> (<span class="st">"sg"</span>, <span class="st">"d1"</span>, <span class="st">"snv"</span>)</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>TRATAMENTO_FIXO <span class="op">=</span> <span class="va">None</span>         <span class="co"># None = escolhe pelo menor RMSECV; ou 'sg', 'd1', 'snv'</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>BUSCA_RF <span class="op">=</span> <span class="va">True</span>                <span class="co"># busca aleatória de hiperparâmetros do Random Forest</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>N_ITER_BUSCA <span class="op">=</span> <span class="dv">15</span>              <span class="co"># combinações testadas na busca</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>N_ARVORES <span class="op">=</span> <span class="dv">300</span>                <span class="co"># árvores do Random Forest</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>N_PCS_RF <span class="op">=</span> <span class="dv">20</span>                  <span class="co"># PCs de entrada do Random Forest quando BUSCA_RF = False</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Domínio de aplicação (notebooks 04 e 05) ------------------------------------</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>N_PCS_DOMINIO <span class="op">=</span> <span class="dv">5</span>              <span class="co"># PCs do PCA do domínio</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>PERC_DOMINIO <span class="op">=</span> <span class="dv">99</span>              <span class="co"># percentil da calibração que define os limites de T² e Q</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>COLS_OCULTAS <span class="op">=</span> (<span class="st">'Owner'</span>, <span class="st">'X'</span>, <span class="st">'Y'</span>, <span class="st">'Country'</span>)  <span class="co"># não exibidas nas tabelas (autoria e localização)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Reprodutibilidade ------------------------------------------------------------</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>SEED <span class="op">=</span> <span class="dv">42</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Pré-processamento (notebook 02) -----------------------------------------</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>WL_MIN, WL_MAX <span class="op">=</span> <span class="dv">450</span>, <span class="dv">2450</span>     <span class="co"># corte das bordas ruidosas (nm)</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>SG_JANELA <span class="op">=</span> <span class="dv">11</span>                 <span class="co"># janela do Savitzky-Golay (nº ímpar de bandas)</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>SG_GRAU <span class="op">=</span> <span class="dv">2</span>                    <span class="co"># grau do polinômio do Savitzky-Golay</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Outliers (notebook 02) ----------------------------------------------------</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>Z_OUTLIER <span class="op">=</span> <span class="dv">3</span>                  <span class="co"># limite do z-score do espectro médio</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>N_PCS_OUTLIER <span class="op">=</span> <span class="dv">5</span>              <span class="co"># PCs usados no T² e no Q</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>PERC_OUTLIER <span class="op">=</span> <span class="dv">99</span>              <span class="co"># percentil que define os limites de T² e Q</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># --- PCA e clusterização (notebook 03) ------------------------------------------</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>N_PCS_EXPLORA <span class="op">=</span> <span class="dv">10</span>             <span class="co"># PCs da análise exploratória</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>N_PCS_CLUSTER <span class="op">=</span> <span class="dv">5</span>              <span class="co"># PCs usados no k-means</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>K_MAX <span class="op">=</span> <span class="dv">10</span>                     <span class="co"># maior k testado no cotovelo e na silhueta</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">3</span>                          <span class="co"># número de grupos escolhido</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Modelagem (notebook 04) --------------------------------------------------</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>TEST_SIZE <span class="op">=</span> <span class="fl">0.3</span>                <span class="co"># fração para validação (divisão estratificada por grupo)</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>CV_FOLDS <span class="op">=</span> <span class="dv">10</span>                  <span class="co"># partições da validação cruzada</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>MAX_LV <span class="op">=</span> <span class="dv">20</span>                    <span class="co"># maior nº de variáveis latentes testado no PLSR</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>TRATAMENTOS <span class="op">=</span> (<span class="st">"sg"</span>, <span class="st">"d1"</span>, <span class="st">"snv"</span>)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>TRATAMENTO_FIXO <span class="op">=</span> <span class="va">None</span>         <span class="co"># None = escolhe pelo menor RMSECV; ou 'sg', 'd1', 'snv'</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>BUSCA_RF <span class="op">=</span> <span class="va">True</span>                <span class="co"># busca aleatória de hiperparâmetros do Random Forest</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>N_ITER_BUSCA <span class="op">=</span> <span class="dv">15</span>              <span class="co"># combinações testadas na busca</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>N_ARVORES <span class="op">=</span> <span class="dv">300</span>                <span class="co"># árvores do Random Forest</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>N_PCS_RF <span class="op">=</span> <span class="dv">20</span>                  <span class="co"># PCs de entrada do Random Forest quando BUSCA_RF = False</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Domínio de aplicação (notebooks 04 e 05) ------------------------------------</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>N_PCS_DOMINIO <span class="op">=</span> <span class="dv">5</span>              <span class="co"># PCs do PCA do domínio</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>PERC_DOMINIO <span class="op">=</span> <span class="dv">99</span>              <span class="co"># percentil da calibração que define os limites de T² e Q</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="utils.py" class="level2">
