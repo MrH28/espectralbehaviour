@@ -1,0 +1,567 @@
+[
+  {
+    "objectID": "como-usar.html",
+    "href": "como-usar.html",
+    "title": "Como usar",
+    "section": "",
+    "text": "pip install -r requirements.txt\nBaixe os arquivos: requirements.txt · config.py · utils.py · gerar_dados_sinteticos.py\nNotebooks: 01 · 02 · 03 · 04 · 05",
+    "crumbs": [
+      "Início",
+      "Como usar"
+    ]
+  },
+  {
+    "objectID": "como-usar.html#instalação",
+    "href": "como-usar.html#instalação",
+    "title": "Como usar",
+    "section": "",
+    "text": "pip install -r requirements.txt\nBaixe os arquivos: requirements.txt · config.py · utils.py · gerar_dados_sinteticos.py\nNotebooks: 01 · 02 · 03 · 04 · 05",
+    "crumbs": [
+      "Início",
+      "Como usar"
+    ]
+  },
+  {
+    "objectID": "como-usar.html#execução",
+    "href": "como-usar.html#execução",
+    "title": "Como usar",
+    "section": "Execução",
+    "text": "Execução\nAbra os notebooks na ordem (01 a 05) e execute todas as células. Cada notebook lê os arquivos salvos pelo anterior na pasta resultados/, e as figuras vão para resultados/figuras/. Execute sempre a partir da pasta do projeto, onde estão os notebooks e o config.py.",
+    "crumbs": [
+      "Início",
+      "Como usar"
+    ]
+  },
+  {
+    "objectID": "como-usar.html#dados-do-saturin",
+    "href": "como-usar.html#dados-do-saturin",
+    "title": "Como usar",
+    "section": "Dados do Saturin",
+    "text": "Dados do Saturin\nOs notebooks usam dados/raw_nir_data_Saturin.csv, com ID_Unico como identificador e Clay_gkg como variável-alvo. O arquivo raw_mir_data_Saturin.csv é a fonte MIR alternativa. Os CSVs usam codificação latin1, têm uma coluna índice vazia e bandas espectrais com nomes numéricos em ordem crescente. MAX_AMOSTRAS em config.py limita a amostra aleatória reprodutível. Os CSVs (cerca de 1,4 GB) não são distribuídos neste site.\nNão há arquivo de amostras novas sem análise laboratorial; por isso o notebook 05 executa as visualizações e métricas de validação e informa que a predição de novas amostras foi ignorada.",
+    "crumbs": [
+      "Início",
+      "Como usar"
+    ]
+  },
+  {
+    "objectID": "como-usar.html#usando-outro-banco",
+    "href": "como-usar.html#usando-outro-banco",
+    "title": "Como usar",
+    "section": "Usando outro banco",
+    "text": "Usando outro banco\n\nColoque o arquivo em dados/ com uma coluna identificadora, as colunas de atributos e uma coluna por comprimento de onda, nomeada pelo valor em nm (350, 351, …), em ordem crescente.\nEm config.py, ajuste ARQUIVO, COL_ALVO e, se as colunas espectrais tiverem prefixo (por exemplo X350), PREFIXO.\nRevise WL_MIN, WL_MAX, SG_JANELA, K etc. conforme o sensor e os dados.",
+    "crumbs": [
+      "Início",
+      "Como usar"
+    ]
+  },
+  {
+    "objectID": "como-usar.html#dados-sintéticos",
+    "href": "como-usar.html#dados-sintéticos",
+    "title": "Como usar",
+    "section": "Dados sintéticos",
+    "text": "Dados sintéticos\ngerar_dados_sinteticos.py cria um banco no formato da BSSL para praticar. Os espectros têm feições simuladas perto de 1400, 1900 e 2200 nm, ligadas à argila. Os dados são bem comportados e o desempenho é muito mais alto do que com dados reais; os números obtidos com eles não são resultados científicos. Para usá-los, aponte ARQUIVO e ARQUIVO_NOVAS para os arquivos gerados em config.py.",
+    "crumbs": [
+      "Início",
+      "Como usar"
+    ]
+  },
+  {
+    "objectID": "resultados.html",
+    "href": "resultados.html",
+    "title": "Resultados",
+    "section": "",
+    "text": "Alvo: argila (g/kg). Amostra aleatória de 5000 linhas do arquivo NIR (SEED = 42). Arquivos: metricas.csv · predicoes_validacao.csv",
+    "crumbs": [
+      "Início",
+      "Resultados"
+    ]
+  },
+  {
+    "objectID": "resultados.html#métricas",
+    "href": "resultados.html#métricas",
+    "title": "Resultados",
+    "section": "Métricas",
+    "text": "Métricas\n\n\n\nModelo\nConjunto\nR²\nRMSE (g/kg)\nRPD\nRPIQ\nViés\n\n\n\n\nPLSR\nCalibração\n0.535\n130.1\n1.47\n2.01\n-0.00\n\n\nPLSR\nValidação cruzada\n0.464\n139.8\n1.37\n1.87\n-0.14\n\n\nPLSR\nValidação\n0.493\n138.7\n1.40\n2.03\n-1.80\n\n\nRandom Forest\nCalibração\n0.935\n48.6\n3.93\n5.39\n0.90\n\n\nRandom Forest\nValidação\n0.535\n132.7\n1.47\n2.12\n1.46",
+    "crumbs": [
+      "Início",
+      "Resultados"
+    ]
+  },
+  {
+    "objectID": "resultados.html#leitura-e-exploração",
+    "href": "resultados.html#leitura-e-exploração",
+    "title": "Resultados",
+    "section": "01 · Leitura e exploração",
+    "text": "01 · Leitura e exploração\n\n\n\n\n\n\nEspectros brutos\n\n\n\n\n\n\n\nDistribuição da argila\n\n\n\n\n\n\n\nCorrelação por banda",
+    "crumbs": [
+      "Início",
+      "Resultados"
+    ]
+  },
+  {
+    "objectID": "resultados.html#pré-processamento-e-outliers",
+    "href": "resultados.html#pré-processamento-e-outliers",
+    "title": "Resultados",
+    "section": "02 · Pré-processamento e outliers",
+    "text": "02 · Pré-processamento e outliers\n\n\n\n\n\n\nEtapas do pré-processamento\n\n\n\n\n\n\n\nOutliers: z-score, T² e Q",
+    "crumbs": [
+      "Início",
+      "Resultados"
+    ]
+  },
+  {
+    "objectID": "resultados.html#pca-e-clusterização",
+    "href": "resultados.html#pca-e-clusterização",
+    "title": "Resultados",
+    "section": "03 · PCA e clusterização",
+    "text": "03 · PCA e clusterização\n\n\n\n\n\n\nVariância explicada\n\n\n\n\n\n\n\nEscores e loadings\n\n\n\n\n\n\n\n\n\nCotovelo e silhueta\n\n\n\n\n\n\n\nGrupos do k-means",
+    "crumbs": [
+      "Início",
+      "Resultados"
+    ]
+  },
+  {
+    "objectID": "resultados.html#modelagem",
+    "href": "resultados.html#modelagem",
+    "title": "Resultados",
+    "section": "04 · Modelagem",
+    "text": "04 · Modelagem\n\n\n\nRMSECV do PLSR por tratamento e nº de variáveis latentes",
+    "crumbs": [
+      "Início",
+      "Resultados"
+    ]
+  },
+  {
+    "objectID": "resultados.html#visualização-e-interpretação",
+    "href": "resultados.html#visualização-e-interpretação",
+    "title": "Resultados",
+    "section": "05 · Visualização e interpretação",
+    "text": "05 · Visualização e interpretação\n\n\n\nObservado × predito (validação)\n\n\n\n\n\n\n\n\nCoeficientes e VIP do PLSR\n\n\n\n\n\n\n\nImportância no Random Forest",
+    "crumbs": [
+      "Início",
+      "Resultados"
+    ]
+  },
+  {
+    "objectID": "04_modelagem.html",
+    "href": "04_modelagem.html",
+    "title": "Notebook 04 — Modelagem: PLSR e Random Forest",
+    "section": "",
+    "text": "Divide calibração e validação (estratificada pelos grupos), escolhe o tratamento e o número de variáveis latentes do PLSR por validação cruzada, ajusta um Random Forest sobre escores de PCA, compara as métricas e salva o modelo com os limites do domínio de aplicação.\nEntradas: espectros_pp.npz, df_pp.pkl, dados_brutos.npz · Saídas: modelo_solo.joblib, metricas.csv, predicoes_validacao.csv, figuras 04_*.png\nimport warnings; warnings.filterwarnings('ignore')\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom IPython.display import display\nimport config as cfg, utils\n\ncfg.PASTA_FIG.mkdir(parents=True, exist_ok=True)\nimport joblib\nfrom sklearn.cross_decomposition import PLSRegression\nfrom sklearn.decomposition import PCA\nfrom sklearn.ensemble import RandomForestRegressor\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn.model_selection import KFold, RandomizedSearchCV, cross_val_predict, train_test_split\nfrom sklearn.pipeline import Pipeline\n\nd = np.load(cfg.PASTA / 'espectros_pp.npz')\nX_suav, X_d1, X_snv, y, wl = d['X_suav'], d['X_d1'], d['X_snv'], d['y'], d['wl']\ndf = pd.read_pickle(cfg.PASTA / 'df_pp.pkl')\nwl_orig = np.load(cfg.PASTA / 'dados_brutos.npz')['wl_orig']\nn = len(y)",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "04 · Modelagem: PLSR e RF"
+    ]
+  },
+  {
+    "objectID": "04_modelagem.html#divisão-calibraçãovalidação",
+    "href": "04_modelagem.html#divisão-calibraçãovalidação",
+    "title": "Notebook 04 — Modelagem: PLSR e Random Forest",
+    "section": "1. Divisão calibração/validação",
+    "text": "1. Divisão calibração/validação\n\nidx_tr, idx_te = train_test_split(np.arange(n), test_size=cfg.TEST_SIZE, random_state=cfg.SEED,\n                                  stratify=df['cluster'])\nytr, yte = y[idx_tr], y[idx_te]\nprint(f'Calibração: {len(idx_tr)} | Validação: {len(idx_te)}')\n\nCalibração: 787 | Validação: 338",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "04 · Modelagem: PLSR e RF"
+    ]
+  },
+  {
+    "objectID": "04_modelagem.html#comparação-de-tratamentos-rmsecv-do-plsr",
+    "href": "04_modelagem.html#comparação-de-tratamentos-rmsecv-do-plsr",
+    "title": "Notebook 04 — Modelagem: PLSR e Random Forest",
+    "section": "2. Comparação de tratamentos (RMSECV do PLSR)",
+    "text": "2. Comparação de tratamentos (RMSECV do PLSR)\n\nTRATS = {'sg': X_suav, 'd1': X_d1, 'snv': X_snv}\ncv = KFold(cfg.CV_FOLDS, shuffle=True, random_state=cfg.SEED)\n\ndef rmsecv(X, alvo, max_lv=cfg.MAX_LV):\n    return np.array([np.sqrt(mean_squared_error(alvo, cross_val_predict(PLSRegression(k), X, alvo, cv=cv).ravel()))\n                     for k in range(1, max_lv + 1)])\n\ncurvas = {t: rmsecv(TRATS[t][idx_tr], ytr) for t in cfg.TRATAMENTOS}\nresumo = pd.DataFrame({'melhor_nLV': {t: int(c.argmin()) + 1 for t, c in curvas.items()},\n                       'RMSECV': {t: c.min() for t, c in curvas.items()}}).round(2)\ndisplay(resumo)\n\nTRAT_FINAL = cfg.TRATAMENTO_FIXO or resumo['RMSECV'].idxmin()\nprint('Tratamento escolhido:', TRAT_FINAL)\n\nfig, ax = plt.subplots(figsize=(7, 3.8))\nfor t, c in curvas.items():\n    ax.plot(range(1, cfg.MAX_LV + 1), c, 'o-', ms=3, label=t)\nax.set_xlabel('Variáveis latentes'); ax.set_ylabel('RMSECV'); ax.legend(title='Tratamento')\nplt.tight_layout(); utils.salva_figura(fig, '04_rmsecv_plsr.png'); plt.show()\n\n\n\n\n\n\n\n\nmelhor_nLV\nRMSECV\n\n\n\n\nsg\n17\n139.80\n\n\nd1\n11\n140.37\n\n\nsnv\n16\n148.10\n\n\n\n\n\n\n\nTratamento escolhido: sg",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "04 · Modelagem: PLSR e RF"
+    ]
+  },
+  {
+    "objectID": "04_modelagem.html#plsr-final",
+    "href": "04_modelagem.html#plsr-final",
+    "title": "Notebook 04 — Modelagem: PLSR e Random Forest",
+    "section": "3. PLSR final",
+    "text": "3. PLSR final\n\ncurva = curvas[TRAT_FINAL]\nnlv = int(curva.argmin()) + 1\nXtr, Xte = TRATS[TRAT_FINAL][idx_tr], TRATS[TRAT_FINAL][idx_te]\n\npls = PLSRegression(n_components=nlv).fit(Xtr, ytr)\npred_pls_cal = pls.predict(Xtr).ravel()\npred_pls_cv = cross_val_predict(PLSRegression(nlv), Xtr, ytr, cv=cv).ravel()\npred_pls_val = pls.predict(Xte).ravel()\n\nplt.plot(range(1, cfg.MAX_LV + 1), curva, 'o-')\nplt.axvline(nlv, color='red', ls='--')\nplt.xlabel('Variáveis latentes'); plt.ylabel('RMSECV'); plt.title(f'PLSR ({TRAT_FINAL}): {nlv} VLs')\nplt.show()",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "04 · Modelagem: PLSR e RF"
+    ]
+  },
+  {
+    "objectID": "04_modelagem.html#random-forest-sobre-escores-de-pca",
+    "href": "04_modelagem.html#random-forest-sobre-escores-de-pca",
+    "title": "Notebook 04 — Modelagem: PLSR e Random Forest",
+    "section": "4. Random Forest sobre escores de PCA",
+    "text": "4. Random Forest sobre escores de PCA\n\nrf_pipe = Pipeline([('pca', PCA()),\n                    ('rf', RandomForestRegressor(n_estimators=cfg.N_ARVORES, random_state=cfg.SEED, n_jobs=-1))])\nif cfg.BUSCA_RF:\n    grade = {'pca__n_components': [10, 20, 30],\n             'rf__max_features': ['sqrt', 0.3, 1.0],\n             'rf__min_samples_leaf': [1, 2, 5]}\n    busca = RandomizedSearchCV(rf_pipe, grade, n_iter=cfg.N_ITER_BUSCA, cv=5, random_state=cfg.SEED,\n                               scoring='neg_root_mean_squared_error', n_jobs=-1).fit(Xtr, ytr)\n    rf = busca.best_estimator_\n    print('Melhores parâmetros:', busca.best_params_)\n    print(f'RMSECV (5 partições): {-busca.best_score_:.2f}')\nelse:\n    rf = rf_pipe.set_params(pca__n_components=cfg.N_PCS_RF).fit(Xtr, ytr)\n\npred_rf_cal = rf.predict(Xtr)\npred_rf_val = rf.predict(Xte)\n\nMelhores parâmetros: {'rf__min_samples_leaf': 1, 'rf__max_features': 1.0, 'pca__n_components': 20}\nRMSECV (5 partições): 133.99",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "04 · Modelagem: PLSR e RF"
+    ]
+  },
+  {
+    "objectID": "04_modelagem.html#tabela-de-métricas",
+    "href": "04_modelagem.html#tabela-de-métricas",
+    "title": "Notebook 04 — Modelagem: PLSR e Random Forest",
+    "section": "5. Tabela de métricas",
+    "text": "5. Tabela de métricas\n\nlinhas = {('PLSR', 'Calibração'): utils.avalia(ytr, pred_pls_cal),\n          ('PLSR', 'Validação cruzada'): utils.avalia(ytr, pred_pls_cv),\n          ('PLSR', 'Validação'): utils.avalia(yte, pred_pls_val),\n          ('Random Forest', 'Calibração'): utils.avalia(ytr, pred_rf_cal),\n          ('Random Forest', 'Validação'): utils.avalia(yte, pred_rf_val)}\nmetricas = pd.DataFrame(linhas).T\nmetricas.index.names = ['Modelo', 'Conjunto']\ndisplay(metricas.round(3))\n\n\n\n\n\n\n\n\n\nR2\nRMSE\nRPD\nRPIQ\nViés\n\n\nModelo\nConjunto\n\n\n\n\n\n\n\n\n\nPLSR\nCalibração\n0.535\n130.112\n1.467\n2.013\n-0.000\n\n\nValidação cruzada\n0.464\n139.796\n1.365\n1.874\n-0.144\n\n\nValidação\n0.493\n138.669\n1.404\n2.031\n-1.799\n\n\nRandom Forest\nCalibração\n0.935\n48.624\n3.925\n5.388\n0.900\n\n\nValidação\n0.535\n132.706\n1.467\n2.123\n1.463",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "04 · Modelagem: PLSR e RF"
+    ]
+  },
+  {
+    "objectID": "04_modelagem.html#domínio-de-aplicação-e-salvamento",
+    "href": "04_modelagem.html#domínio-de-aplicação-e-salvamento",
+    "title": "Notebook 04 — Modelagem: PLSR e Random Forest",
+    "section": "6. Domínio de aplicação e salvamento",
+    "text": "6. Domínio de aplicação e salvamento\n\npca_dom = PCA(n_components=cfg.N_PCS_DOMINIO).fit(Xtr)\nt2_cal, q_cal = utils.t2_q(pca_dom, Xtr)\nlim_t2 = float(np.percentile(t2_cal, cfg.PERC_DOMINIO))\nlim_q = float(np.percentile(q_cal, cfg.PERC_DOMINIO))\nprint(f'Limites do domínio (percentil {cfg.PERC_DOMINIO} da calibração): T² = {lim_t2:.1f} | Q = {lim_q:.4f}')\n\nmodelo = {'pls': pls, 'rf': rf, 'pca': rf.named_steps['pca'], 'nlv': nlv, 'tratamento': TRAT_FINAL,\n          'alvo': cfg.COL_ALVO, 'wl': wl_orig, 'wl_orig': wl_orig, 'wl_pp': wl,\n          'pca_dom': pca_dom, 'lim_t2': lim_t2, 'lim_q': lim_q, 'escores_cal': pca_dom.transform(Xtr),\n          't2_cal': t2_cal, 'q_cal': q_cal}\njoblib.dump(modelo, cfg.PASTA / 'modelo_solo.joblib')\nmetricas.to_csv(cfg.PASTA / 'metricas.csv')\npd.DataFrame({'id': df[cfg.COL_ID].to_numpy()[idx_te], 'cluster': df['cluster'].to_numpy()[idx_te],\n              'observado': yte, 'pred_PLSR': pred_pls_val, 'pred_RF': pred_rf_val}\n             ).to_csv(cfg.PASTA / 'predicoes_validacao.csv', index=False)\nprint('Salvos: modelo_solo.joblib, metricas.csv e predicoes_validacao.csv')\n\nLimites do domínio (percentil 99 da calibração): T² = 23.0 | Q = 1.8291\nSalvos: modelo_solo.joblib, metricas.csv e predicoes_validacao.csv",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "04 · Modelagem: PLSR e RF"
+    ]
+  },
+  {
+    "objectID": "02_preprocessamento.html",
+    "href": "02_preprocessamento.html",
+    "title": "Notebook 02 — Pré-processamento e outliers",
+    "section": "",
+    "text": "Corta as bordas, converte em absorbância, suaviza (Savitzky-Golay), calcula a 1ª derivada e o SNV, detecta outliers (z-score, T² e Q) e salva os espectros tratados sem os outliers.\nEntradas: dados_brutos.npz, df_limpo.pkl · Saídas: espectros_pp.npz, df_pp.pkl, figuras 02_*.png\nimport warnings; warnings.filterwarnings('ignore')\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom IPython.display import display\nimport config as cfg, utils\n\ncfg.PASTA_FIG.mkdir(parents=True, exist_ok=True)\nfrom sklearn.decomposition import PCA",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "02 · Pré-processamento e outliers"
+    ]
+  },
+  {
+    "objectID": "02_preprocessamento.html#tratamentos-espectrais",
+    "href": "02_preprocessamento.html#tratamentos-espectrais",
+    "title": "Notebook 02 — Pré-processamento e outliers",
+    "section": "1. Tratamentos espectrais",
+    "text": "1. Tratamentos espectrais\n\nd = np.load(cfg.PASTA / 'dados_brutos.npz')\nX, y, wl_orig = d['X'], d['y'], d['wl_orig']\ndf = pd.read_pickle(cfg.PASTA / 'df_limpo.pkl')\ncols_esp, cols_ref = utils.identificar_colunas(df, cfg.PREFIXO)\n\nwl, X_corte = utils.corta(X, wl_orig)\nprint(f'Bandas: {len(wl_orig)} -&gt; {len(wl)} ({wl.min():.0f} a {wl.max():.0f} nm)')\n\n_, X_abs = utils.preprocessa(X, wl_orig, 'abs')\n_, X_suav = utils.preprocessa(X, wl_orig, 'sg')\n_, X_d1 = utils.preprocessa(X, wl_orig, 'd1')\n_, X_snv = utils.preprocessa(X, wl_orig, 'snv')\n\nBandas: 2151 -&gt; 2001 (450 a 2450 nm)\n\n\n\netapas = [(X_corte, 'Reflectância cortada'), (X_abs, 'Absorbância'), (X_suav, 'Suavizado (SG)'),\n          (X_d1, '1ª derivada (SG)'), (X_snv, 'SG + SNV')]\namostra = np.random.default_rng(cfg.SEED).choice(len(X), 30, replace=False)   # 30 espectros sorteados\nfig, ax = plt.subplots(1, 5, figsize=(20, 3.2))\nfor a, (M, titulo) in zip(ax, etapas):\n    a.plot(wl, M[amostra].T, lw=0.5)\n    a.set_title(titulo); a.set_xlabel('nm')\nplt.tight_layout(); utils.salva_figura(fig, '02_etapas_preprocessamento.png'); plt.show()",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "02 · Pré-processamento e outliers"
+    ]
+  },
+  {
+    "objectID": "02_preprocessamento.html#snv-e-detecção-de-outliers",
+    "href": "02_preprocessamento.html#snv-e-detecção-de-outliers",
+    "title": "Notebook 02 — Pré-processamento e outliers",
+    "section": "2. SNV e detecção de outliers",
+    "text": "2. SNV e detecção de outliers\nTrês critérios complementares:\n\nz-score do espectro médio, calculado na absorbância suavizada (antes do SNV, que zera a média);\nT² de Hotelling: distância ao centro da nuvem nos primeiros PCs;\nQ: resíduo de reconstrução, a parte do espectro que os PCs não reproduzem.\n\nUma amostra é sinalizada se ultrapassar qualquer um dos limites.\n\nm = X_suav.mean(axis=1)\nz = np.abs((m - m.mean()) / m.std())\n\npca_out = PCA(n_components=cfg.N_PCS_OUTLIER).fit(X_snv)\nt2, q = utils.t2_q(pca_out, X_snv)\nlt2, lq = np.percentile(t2, cfg.PERC_OUTLIER), np.percentile(q, cfg.PERC_OUTLIER)\n\nout = (z &gt; cfg.Z_OUTLIER) | (t2 &gt; lt2) | (q &gt; lq)\nidx_out = np.where(out)[0]\nprint(f'Sinalizadas pelo z-score: {(z &gt; cfg.Z_OUTLIER).sum()}')\nprint(f'Sinalizadas pelo T²: {(t2 &gt; lt2).sum()}')\nprint(f'Sinalizadas pelo Q: {(q &gt; lq).sum()}')\nprint(f'Total sinalizado (qualquer critério): {out.sum()}')\n\nSinalizadas pelo z-score: 5\nSinalizadas pelo T²: 12\nSinalizadas pelo Q: 12\nTotal sinalizado (qualquer critério): 25\n\n\n\nfig, ax = plt.subplots(1, 2, figsize=(12, 4))\nax[0].scatter(t2[~out], q[~out], s=8, c='gray', alpha=0.6, label='Normais')\nax[0].scatter(t2[out], q[out], s=14, c='red', label='Sinalizadas')\nax[0].axvline(lt2, color='red', ls='--', lw=1); ax[0].axhline(lq, color='red', ls='--', lw=1)\nax[0].set_xlabel('T² de Hotelling'); ax[0].set_ylabel('Q (resíduo de reconstrução)')\nax[0].set_xscale('log'); ax[0].set_yscale('log')   # escala log: os outliers ficam muito longe das normais\nax[0].set_title('T² × Q (escala log)'); ax[0].legend()\nax[1].plot(wl, X_suav[~out][:40].T, c='lightgray', lw=0.5)\nax[1].plot(wl, X_suav[out].T, c='red', lw=0.8)\nax[1].set_xlabel('Comprimento de onda (nm)'); ax[1].set_ylabel('Absorbância suavizada')\nax[1].set_title('Espectros sinalizados (vermelho)')\nplt.tight_layout(); utils.salva_figura(fig, '02_outliers.png'); plt.show()",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "02 · Pré-processamento e outliers"
+    ]
+  },
+  {
+    "objectID": "02_preprocessamento.html#remoção-e-salvamento",
+    "href": "02_preprocessamento.html#remoção-e-salvamento",
+    "title": "Notebook 02 — Pré-processamento e outliers",
+    "section": "3. Remoção e salvamento",
+    "text": "3. Remoção e salvamento\nAs amostras sinalizadas são listadas para inspeção e removidas. As variáveis da seção 2 (X_suav, z, t2, q, out, df) continuam com todas as amostras; as versões filtradas ganham o sufixo _pp.\n\ndisplay(df.loc[out, cols_ref])\n\ndf_pp = df.loc[~out, cols_ref].reset_index(drop=True)\ny_pp = y[~out]\nprint(f'Amostras: {len(df)} -&gt; {len(df_pp)} após a remoção de outliers')\n\nnp.savez(cfg.PASTA / 'espectros_pp.npz', X_suav=X_suav[~out], X_d1=X_d1[~out], X_snv=X_snv[~out],\n         y=y_pp, wl=wl)\ndf_pp.to_pickle(cfg.PASTA / 'df_pp.pkl')\nprint('Salvos: espectros_pp.npz e df_pp.pkl')\n\n\n\n\n\n\n\n\nID_Unico\nOwner\nX\nY\nCountry\nUpper_depth_cm\nLower_depth_cm\nSand_gkg\nSilt_gkg\nClay_gkg\n...\nC_gkg\nOM_gkg\nP_mgkg\npH_H2O\nCa_mmolkg\nMg_mmolkg\nK_mmolkg\nCEC_Ph7_mmolkg\nCEC_Efe_mmolkg\nMacroN_g_kg\n\n\n\n\n61\n75026\nICRAF.ISRIC\n-76.583333\n21.166667\nNaN\n90.0\n150.0\n496.000000\n280.000000\n223.000000\n...\nNaN\nNaN\nNaN\n8.60\n599.0\n156.0\n1.0\n522.0\nNaN\nNaN\n\n\n156\n73843\nICRAF.ISRIC\n-36.533333\n-9.933333\nNaN\n147.0\n177.0\n644.000000\n43.000000\n313.000000\n...\nNaN\nNaN\nNaN\n5.30\n2.0\n4.0\nNaN\n7.0\nNaN\nNaN\n\n\n194\n5442\nNikolaos Tziolas\n39.336190\n39.356690\nTurkey\nNaN\nNaN\n144.130674\n91.244065\n764.625261\n...\nNaN\n2.359155\nNaN\n9.76\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n205\n63891\nR. Poppiel / Dematte\n53.206633\n30.131850\nIran\n0.0\n10.0\n420.720000\n250.000000\n329.280000\n...\n14.501160\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n227\n65805\nK. Singh\n152.016733\n-4.298367\nPapua new guinea\n60.0\n90.0\nNaN\nNaN\n60.600000\n...\n2.100000\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n239\n75463\nICRAF.ISRIC\n-73.445000\n-4.063611\nNaN\n125.0\n150.0\n13.000000\n397.000000\n590.000000\n...\nNaN\nNaN\nNaN\n8.00\n598.0\n17.0\n1.0\n417.0\nNaN\nNaN\n\n\n241\n129\nSabine Grunwald\n78.106005\n17.384766\nIndia\nNaN\nNaN\n203.100000\n186.900000\n610.000000\n...\n21.700000\nNaN\n8.310\n8.02\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n292\n54591\nEmmanuelle Vandour\n2.043631\n48.821496\nFrance\nNaN\nNaN\n249.000000\n379.000000\n356.000000\n...\n18.300000\n31.700000\n0.071\n8.23\nNaN\nNaN\nNaN\n25.9\nNaN\nNaN\n\n\n318\n63890\nR. Poppiel / Dematte\n53.229931\n30.142877\nIran\n0.0\n10.0\n300.720000\n320.000000\n379.280000\n...\n16.299304\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n373\n54593\nEmmanuelle Vandour\n2.045132\n48.822563\nFrance\nNaN\nNaN\n269.000000\n511.000000\n220.000000\n...\n14.400000\n24.900000\n0.122\n6.61\nNaN\nNaN\nNaN\n13.1\nNaN\nNaN\n\n\n395\n64051\nR. Poppiel / Dematte\n55.389219\n28.874004\nIran\n0.0\n10.0\n658.400000\n260.000000\n81.600000\n...\n0.910000\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n484\n74096\nICRAF.ISRIC\n-76.933333\n-0.516667\nNaN\n42.0\n65.0\n46.000000\n106.000000\n848.000000\n...\nNaN\nNaN\nNaN\n4.70\n2.0\n1.0\nNaN\n59.0\nNaN\nNaN\n\n\n554\n5\nSabine Grunwald\n78.120025\n17.371776\nIndia\nNaN\nNaN\n236.000000\n234.000000\n530.000000\n...\n16.600000\nNaN\n15.070\n7.91\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n625\n77771\nICRAF.ISRIC\n30.383333\n-29.666667\nNaN\n45.0\n70.0\n98.000000\n408.000000\n493.000000\n...\nNaN\nNaN\nNaN\n7.10\n174.0\n109.0\n1.0\n348.0\nNaN\nNaN\n\n\n690\n76315\nICRAF.ISRIC\n98.666667\n2.266667\nNaN\n50.0\n125.0\n665.000000\n193.000000\n141.000000\n...\nNaN\nNaN\nNaN\n5.70\n2.0\nNaN\nNaN\n76.0\nNaN\nNaN\n\n\n739\n77059\nICRAF.ISRIC\n101.616667\n-1.233333\nNaN\n300.0\n400.0\n39.000000\n79.000000\n882.000000\n...\nNaN\nNaN\nNaN\n5.00\nNaN\nNaN\nNaN\n141.0\nNaN\nNaN\n\n\n770\n62\nSabine Grunwald\n78.108532\n17.377085\nIndia\nNaN\nNaN\n184.000000\n156.000000\n660.000000\n...\n22.900000\nNaN\n9.860\n7.93\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n779\n54603\nEmmanuelle Vandour\n1.947302\n48.848947\nFrance\nNaN\nNaN\n105.000000\n345.000000\n217.000000\n...\n14.100000\n24.400000\n0.045\n8.24\nNaN\nNaN\nNaN\n19.3\nNaN\nNaN\n\n\n968\n5403\nNikolaos Tziolas\n32.718710\n40.104091\nTurkey\nNaN\nNaN\n782.252989\n144.584015\n73.162996\n...\nNaN\n6.491349\nNaN\n8.69\nNaN\nNaN\nNaN\nNaN\nNaN\nNaN\n\n\n972\n54601\nEmmanuelle Vandour\n1.946708\n48.850459\nFrance\nNaN\nNaN\n120.000000\n577.000000\n276.000000\n...\n17.600000\n30.400000\nNaN\n8.05\nNaN\nNaN\nNaN\n19.2\nNaN\nNaN\n\n\n978\n54643\nEmmanuelle Vandour\n1.939436\n48.882820\nFrance\nNaN\nNaN\n264.000000\n528.000000\n208.000000\n...\n12.700000\n22.000000\n0.047\n6.71\nNaN\nNaN\nNaN\n11.0\nNaN\nNaN\n\n\n984\n75098\nICRAF.ISRIC\n-7.333333\n5.883333\nNaN\n100.0\n120.0\n542.000000\n213.000000\n246.000000\n...\nNaN\nNaN\nNaN\n4.70\n14.0\n3.0\nNaN\n33.0\nNaN\nNaN\n\n\n1048\n54639\nEmmanuelle Vandour\n1.940125\n48.886690\nFrance\nNaN\nNaN\n346.000000\n503.000000\n151.000000\n...\n10.800000\n18.700000\n0.041\n7.20\nNaN\nNaN\nNaN\n10.5\nNaN\nNaN\n\n\n1049\n54604\nEmmanuelle Vandour\n1.946511\n48.850796\nFrance\nNaN\nNaN\n111.000000\n575.000000\n267.000000\n...\n19.100000\n33.000000\nNaN\n8.07\nNaN\nNaN\nNaN\n19.2\nNaN\nNaN\n\n\n1083\n54648\nEmmanuelle Vandour\n1.912548\n48.827661\nFrance\nNaN\nNaN\n129.000000\n671.000000\n200.000000\n...\n14.300000\n24.700000\n0.115\n6.43\nNaN\nNaN\nNaN\n10.7\nNaN\nNaN\n\n\n\n\n25 rows × 21 columns\n\n\n\nAmostras: 1150 -&gt; 1125 após a remoção de outliers\nSalvos: espectros_pp.npz e df_pp.pkl",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "02 · Pré-processamento e outliers"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Pipeline espectral Saturin Fhl",
+    "section": "",
+    "text": "Pipeline que lê o banco espectral Saturin, trata os espectros, explora a variação com PCA e k-means e ajusta modelos PLSR e Random Forest para estimar o teor de argila (Clay_gkg), com verificação do domínio de aplicação por T² e Q.",
+    "crumbs": [
+      "Início"
+    ]
+  },
+  {
+    "objectID": "index.html#etapas",
+    "href": "index.html#etapas",
+    "title": "Pipeline espectral Saturin Fhl",
+    "section": "Etapas",
+    "text": "Etapas\nExecute os notebooks em ordem. Cada um lê o que o anterior salvou em resultados/.\n\n\n\n\nNotebook\nO que faz\nDestaque\n\n\n\n\n01\nLeitura e exploração\nLeitura, estatística descritiva, limpeza e correlação por banda\n5000 → 1150 amostras; maior |r| 0,47 em 2206 nm\n\n\n02\nPré-processamento e outliers\nCorte, absorbância, Savitzky-Golay, 1ª derivada, SNV, z-score, T² e Q\n2151 → 2001 bandas; 25 outliers removidos\n\n\n03\nPCA e clusterização\nPCA, cotovelo, silhueta e k-means\nPC1 63,7%; 5 PCs 95,0%; k = 3\n\n\n04\nModelagem\nPLSR com tratamento e nº de VLs por validação cruzada; Random Forest\n787 calibração / 338 validação; sg com 17 VLs\n\n\n05\nVisualização e predição\nObservado × predito, resíduos, VIP, importância e amostras novas\nSem amostras novas configuradas",
+    "crumbs": [
+      "Início"
+    ]
+  },
+  {
+    "objectID": "index.html#resultado-principal",
+    "href": "index.html#resultado-principal",
+    "title": "Pipeline espectral Saturin Fhl",
+    "section": "Resultado principal",
+    "text": "Resultado principal\n\n\n\nModelo\nConjunto\nR²\nRMSE (g/kg)\nRPD\nRPIQ\nViés\n\n\n\n\nPLSR\nCalibração\n0.535\n130.1\n1.47\n2.01\n-0.00\n\n\nPLSR\nValidação cruzada\n0.464\n139.8\n1.37\n1.87\n-0.14\n\n\nPLSR\nValidação\n0.493\n138.7\n1.40\n2.03\n-1.80\n\n\nRandom Forest\nCalibração\n0.935\n48.6\n3.93\n5.39\n0.90\n\n\nRandom Forest\nValidação\n0.535\n132.7\n1.47\n2.12\n1.46\n\n\n\nNa validação independente os dois modelos ficam próximos (R² ≈ 0,49–0,54, RPD ≈ 1,4–1,5). O R² de 0,94 do Random Forest na calibração, contra 0,54 na validação, indica sobreajuste. Veja todas as figuras em Resultados.\n\n\n\n\n\n\n\nObservado × predito na validação",
+    "crumbs": [
+      "Início"
+    ]
+  },
+  {
+    "objectID": "01_leitura_exploratoria.html",
+    "href": "01_leitura_exploratoria.html",
+    "title": "Notebook 01 — Leitura e análise exploratória",
+    "section": "",
+    "text": "Lê o banco espectral, separa as colunas espectrais das de laboratório, descreve os atributos, remove as amostras sem o atributo-alvo e salva os dados para o notebook 02.\nEntrada: dados/bssl.csv (caminho em config.py) · Saídas: resultados/dados_brutos.npz, resultados/df_limpo.pkl e figuras 01_*.png\nimport warnings; warnings.filterwarnings('ignore')\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom IPython.display import display\nimport config as cfg, utils\n\ncfg.PASTA_FIG.mkdir(parents=True, exist_ok=True)",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "01 · Leitura e exploração"
+    ]
+  },
+  {
+    "objectID": "01_leitura_exploratoria.html#leitura",
+    "href": "01_leitura_exploratoria.html#leitura",
+    "title": "Notebook 01 — Leitura e análise exploratória",
+    "section": "1. Leitura",
+    "text": "1. Leitura\n\ndf = pd.read_csv(cfg.ARQUIVO, encoding=cfg.ENCODING)\ndf = df.loc[:, ~df.columns.astype(str).str.match(r'^Unnamed')]\nif cfg.MAX_AMOSTRAS and len(df) &gt; cfg.MAX_AMOSTRAS:\n    df = df.sample(cfg.MAX_AMOSTRAS, random_state=cfg.SEED).reset_index(drop=True)\n    print(f'Amostra limitada a {cfg.MAX_AMOSTRAS} linhas (SEED={cfg.SEED})')\ncols_esp, cols_ref = utils.identificar_colunas(df, cfg.PREFIXO)\nwl_orig = utils.comprimentos_onda(cols_esp, cfg.PREFIXO)\n\nprint('Amostras:', df.shape[0])\nprint('Bandas espectrais:', len(cols_esp), f'({wl_orig.min():.0f} a {wl_orig.max():.0f} nm)')\nprint('Colunas de referência:', cols_ref)\n\nAmostra limitada a 5000 linhas (SEED=42)\nAmostras: 5000\nBandas espectrais: 2151 (350 a 2500 nm)\nColunas de referência: ['ID_Unico', 'Owner', 'X', 'Y', 'Country', 'Upper_depth_cm', 'Lower_depth_cm', 'Sand_gkg', 'Silt_gkg', 'Clay_gkg', 'Density_kgdm3', 'C_gkg', 'OM_gkg', 'P_mgkg', 'pH_H2O', 'Ca_mmolkg', 'Mg_mmolkg', 'K_mmolkg', 'CEC_Ph7_mmolkg', 'CEC_Efe_mmolkg', 'MacroN_g_kg']",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "01 · Leitura e exploração"
+    ]
+  },
+  {
+    "objectID": "01_leitura_exploratoria.html#estatística-descritiva-e-valores-faltantes",
+    "href": "01_leitura_exploratoria.html#estatística-descritiva-e-valores-faltantes",
+    "title": "Notebook 01 — Leitura e análise exploratória",
+    "section": "2. Estatística descritiva e valores faltantes",
+    "text": "2. Estatística descritiva e valores faltantes\n\ndisplay(df[cols_ref].describe().round(2))\n\nfaltantes = pd.DataFrame({'faltantes': df[cols_ref].isna().sum(),\n                          '%': (100 * df[cols_ref].isna().mean()).round(1)})\ndisplay(faltantes)\n\n\n\n\n\n\n\n\nID_Unico\nX\nY\nUpper_depth_cm\nLower_depth_cm\nSand_gkg\nSilt_gkg\nClay_gkg\nDensity_kgdm3\nC_gkg\nOM_gkg\nP_mgkg\npH_H2O\nCa_mmolkg\nMg_mmolkg\nK_mmolkg\nCEC_Ph7_mmolkg\nCEC_Efe_mmolkg\nMacroN_g_kg\n\n\n\n\ncount\n5000.00\n4998.00\n4998.00\n3545.00\n3543.00\n3524.00\n3531.00\n3610.00\n226.00\n3967.00\n197.00\n2763.00\n3483.00\n380.00\n357.00\n2921.00\n476.00\n2333.00\n2681.00\n\n\nmean\n149776.61\n22.24\n34.73\n9.52\n30.43\n408.97\n346.04\n206.75\n1.12\n43.28\n21.68\n29.78\n6.31\n123.61\n30.25\n5.01\n130.51\n153.29\n3.09\n\n\nstd\n89682.45\n55.90\n23.90\n30.01\n34.32\n266.56\n196.29\n160.67\n0.41\n89.58\n28.03\n35.33\n1.37\n174.47\n45.63\n6.89\n133.80\n133.46\n4.20\n\n\nmin\n2.00\n-172.36\n-42.77\n0.00\n2.00\n0.00\n0.00\n0.00\n0.08\n0.21\n0.00\n0.00\n3.40\n1.00\n1.00\n0.00\n2.00\n10.00\n0.00\n\n\n25%\n61689.00\n-2.41\n28.38\n0.00\n20.00\n170.00\n200.00\n80.00\n0.90\n9.50\n10.00\n5.70\n5.10\n12.00\n5.00\n1.66\n32.92\n69.00\n1.10\n\n\n50%\n215614.00\n15.17\n41.03\n0.00\n20.00\n390.00\n340.00\n180.00\n1.19\n16.80\n15.00\n20.10\n6.32\n55.00\n16.00\n3.15\n90.50\n124.00\n1.70\n\n\n75%\n226410.75\n32.65\n50.02\n0.00\n20.00\n620.00\n480.00\n290.00\n1.42\n32.70\n22.76\n40.95\n7.57\n173.25\n38.00\n6.00\n178.25\n200.00\n2.90\n\n\nmax\n238976.00\n155.41\n68.92\n420.00\n450.00\n991.90\n951.90\n944.00\n1.86\n591.11\n182.11\n575.10\n10.58\n1256.36\n527.00\n175.47\n937.00\n2045.00\n34.20\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfaltantes\n%\n\n\n\n\nID_Unico\n0\n0.0\n\n\nOwner\n0\n0.0\n\n\nX\n2\n0.0\n\n\nY\n2\n0.0\n\n\nCountry\n413\n8.3\n\n\nUpper_depth_cm\n1455\n29.1\n\n\nLower_depth_cm\n1457\n29.1\n\n\nSand_gkg\n1476\n29.5\n\n\nSilt_gkg\n1469\n29.4\n\n\nClay_gkg\n1390\n27.8\n\n\nDensity_kgdm3\n4774\n95.5\n\n\nC_gkg\n1033\n20.7\n\n\nOM_gkg\n4803\n96.1\n\n\nP_mgkg\n2237\n44.7\n\n\npH_H2O\n1517\n30.3\n\n\nCa_mmolkg\n4620\n92.4\n\n\nMg_mmolkg\n4643\n92.9\n\n\nK_mmolkg\n2079\n41.6\n\n\nCEC_Ph7_mmolkg\n4524\n90.5\n\n\nCEC_Efe_mmolkg\n2667\n53.3\n\n\nMacroN_g_kg\n2319\n46.4",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "01 · Leitura e exploração"
+    ]
+  },
+  {
+    "objectID": "01_leitura_exploratoria.html#limpeza",
+    "href": "01_leitura_exploratoria.html#limpeza",
+    "title": "Notebook 01 — Leitura e análise exploratória",
+    "section": "3. Limpeza",
+    "text": "3. Limpeza\nRemove as amostras sem o atributo-alvo e as com bandas faltantes. X e y são definidos depois da limpeza, com as linhas na mesma ordem de df.\n\nn_antes = len(df)\ndf = df.dropna(subset=[cfg.COL_ALVO])\ndf = df[df[cols_esp].notna().all(axis=1)].reset_index(drop=True)\nprint(f'Amostras: {n_antes} -&gt; {len(df)} após a limpeza')\nprint(f'Assimetria de {cfg.COL_ALVO}: {df[cfg.COL_ALVO].skew():.2f}')\n\nX = df[cols_esp].to_numpy(dtype=float)       # reflectância bruta\ny = df[cfg.COL_ALVO].to_numpy(dtype=float)\nprint('X:', X.shape, '| y:', y.shape)\n\nAmostras: 5000 -&gt; 1150 após a limpeza\nAssimetria de Clay_gkg: 0.86\nX: (1150, 2151) | y: (1150,)",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "01 · Leitura e exploração"
+    ]
+  },
+  {
+    "objectID": "01_leitura_exploratoria.html#distribuição-do-atributo-alvo",
+    "href": "01_leitura_exploratoria.html#distribuição-do-atributo-alvo",
+    "title": "Notebook 01 — Leitura e análise exploratória",
+    "section": "4. Distribuição do atributo-alvo",
+    "text": "4. Distribuição do atributo-alvo\n\ny = df[cfg.COL_ALVO].dropna().to_numpy(dtype=float)\nfig, ax = plt.subplots(1, 2, figsize=(10, 3.5))\nax[0].hist(y, bins=30, color='steelblue', edgecolor='white')\nax[0].set_xlabel(cfg.COL_ALVO); ax[0].set_ylabel('Frequência'); ax[0].set_title('Histograma')\nax[1].boxplot(y, vert=False)\nax[1].set_xlabel(cfg.COL_ALVO); ax[1].set_title('Boxplot')\nplt.tight_layout(); utils.salva_figura(fig, '01_distribuicao_alvo.png'); plt.show()",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "01 · Leitura e exploração"
+    ]
+  },
+  {
+    "objectID": "01_leitura_exploratoria.html#espectros-brutos",
+    "href": "01_leitura_exploratoria.html#espectros-brutos",
+    "title": "Notebook 01 — Leitura e análise exploratória",
+    "section": "5. Espectros brutos",
+    "text": "5. Espectros brutos\n\nrng = np.random.default_rng(cfg.SEED)\namostra = rng.choice(len(X), min(50, len(X)), replace=False)\nmedia, dp = X.mean(axis=0), X.std(axis=0)\n\nfig, ax = plt.subplots(1, 2, figsize=(12, 3.8))\nax[0].plot(wl_orig, X[amostra].T, lw=0.6, alpha=0.7)\nax[0].set_title('50 espectros sorteados')\nax[1].fill_between(wl_orig, media - dp, media + dp, alpha=0.3, label='± 1 desvio-padrão')\nax[1].plot(wl_orig, media, color='black', label='Média')\nax[1].set_title('Espectro médio'); ax[1].legend()\nfor a in ax:\n    a.set_xlabel('Comprimento de onda (nm)'); a.set_ylabel('Reflectância')\nplt.tight_layout(); utils.salva_figura(fig, '01_espectros_brutos.png'); plt.show()",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "01 · Leitura e exploração"
+    ]
+  },
+  {
+    "objectID": "01_leitura_exploratoria.html#correlação-de-cada-banda-com-o-atributo-alvo",
+    "href": "01_leitura_exploratoria.html#correlação-de-cada-banda-com-o-atributo-alvo",
+    "title": "Notebook 01 — Leitura e análise exploratória",
+    "section": "6. Correlação de cada banda com o atributo-alvo",
+    "text": "6. Correlação de cada banda com o atributo-alvo\n\nXc = X - X.mean(axis=0)\nyc = y - y.mean()\ncorr = (Xc * yc[:, None]).sum(axis=0) / (np.sqrt((Xc ** 2).sum(axis=0)) * np.sqrt((yc ** 2).sum()))\n\nfig, ax = plt.subplots(figsize=(9, 3.5))\nax.plot(wl_orig, corr, color='darkred')\nax.axhline(0, color='gray', lw=0.8)\nax.set_xlabel('Comprimento de onda (nm)'); ax.set_ylabel(f'r de Pearson com {cfg.COL_ALVO}')\nplt.tight_layout(); utils.salva_figura(fig, '01_correlacao_bandas.png'); plt.show()\nprint(f'Maior |r|: {np.abs(corr).max():.2f} em {wl_orig[np.abs(corr).argmax()]:.0f} nm')\n\n\n\n\n\n\n\n\nMaior |r|: 0.47 em 2206 nm",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "01 · Leitura e exploração"
+    ]
+  },
+  {
+    "objectID": "01_leitura_exploratoria.html#salvar",
+    "href": "01_leitura_exploratoria.html#salvar",
+    "title": "Notebook 01 — Leitura e análise exploratória",
+    "section": "7. Salvar",
+    "text": "7. Salvar\n\ncfg.PASTA.mkdir(parents=True, exist_ok=True)\nnp.savez(cfg.PASTA / 'dados_brutos.npz', X=X, y=y, wl_orig=wl_orig)\ndf.to_pickle(cfg.PASTA / 'df_limpo.pkl')\nprint('Salvos: dados_brutos.npz e df_limpo.pkl em', cfg.PASTA)\n\nSalvos: dados_brutos.npz e df_limpo.pkl em resultados",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "01 · Leitura e exploração"
+    ]
+  },
+  {
+    "objectID": "03_pca_clusterizacao.html",
+    "href": "03_pca_clusterizacao.html",
+    "title": "Notebook 03 — PCA e clusterização",
+    "section": "",
+    "text": "Resume a variação dos espectros com PCA, escolhe o número de grupos (cotovelo e silhueta) e agrupa as amostras com k-means sobre os primeiros componentes.\nEntradas: espectros_pp.npz, df_pp.pkl · Saídas: df_pp.pkl (com a coluna cluster), cluster_model.joblib, figuras 03_*.png\nimport warnings; warnings.filterwarnings('ignore')\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom IPython.display import display\nimport config as cfg, utils\n\ncfg.PASTA_FIG.mkdir(parents=True, exist_ok=True)\nimport joblib\nfrom sklearn.decomposition import PCA\nfrom sklearn.cluster import KMeans\nfrom sklearn.metrics import silhouette_score\n\nd = np.load(cfg.PASTA / 'espectros_pp.npz')\nX_snv, wl, y = d['X_snv'], d['wl'], d['y']\ndf = pd.read_pickle(cfg.PASTA / 'df_pp.pkl')\nprint('Amostras:', X_snv.shape[0], '| bandas:', X_snv.shape[1])\n\nAmostras: 1125 | bandas: 2001",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "03 · PCA e clusterização"
+    ]
+  },
+  {
+    "objectID": "03_pca_clusterizacao.html#análise-de-componentes-principais",
+    "href": "03_pca_clusterizacao.html#análise-de-componentes-principais",
+    "title": "Notebook 03 — PCA e clusterização",
+    "section": "1. Análise de componentes principais",
+    "text": "1. Análise de componentes principais\n\npca = PCA(n_components=cfg.N_PCS_EXPLORA).fit(X_snv)\nscores = pca.transform(X_snv)\nvar = pca.explained_variance_ratio_\nprint('Variância explicada (%):', (100 * var).round(1))\nprint('Acumulada (%):         ', (100 * var.cumsum()).round(1))\n\nVariância explicada (%): [63.7 15.4  7.7  5.9  2.4  1.3  1.1  0.7  0.5  0.5]\nAcumulada (%):          [63.7 79.1 86.8 92.7 95.  96.3 97.4 98.1 98.6 99. ]\n\n\n\nfig, ax = plt.subplots(1, 2, figsize=(10, 3.5))\nax[0].bar(range(1, len(var) + 1), 100 * var)\nax[0].set_xlabel('Componente principal'); ax[0].set_ylabel('Variância explicada (%)')\nax[1].plot(range(1, len(var) + 1), 100 * var.cumsum(), 'o-')\nax[1].set_xlabel('Nº de componentes'); ax[1].set_ylabel('Variância acumulada (%)')\nplt.tight_layout(); utils.salva_figura(fig, '03_variancia_pca.png'); plt.show()\n\nfig, ax = plt.subplots(1, 2, figsize=(12, 4))\nsc = ax[0].scatter(scores[:, 0], scores[:, 1], c=y, cmap='viridis', s=10)\nplt.colorbar(sc, ax=ax[0], label=cfg.COL_ALVO)\nax[0].set_xlabel(f'PC1 ({100 * var[0]:.1f}%)'); ax[0].set_ylabel(f'PC2 ({100 * var[1]:.1f}%)')\nax[0].set_title('Escores')\nfor i in range(3):\n    ax[1].plot(wl, pca.components_[i], label=f'PC{i + 1}')\nax[1].set_xlabel('Comprimento de onda (nm)'); ax[1].set_ylabel('Loading'); ax[1].legend()\nax[1].set_title('Loadings')\nplt.tight_layout(); utils.salva_figura(fig, '03_escores_loadings.png'); plt.show()",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "03 · PCA e clusterização"
+    ]
+  },
+  {
+    "objectID": "03_pca_clusterizacao.html#número-de-grupos-cotovelo-e-silhueta",
+    "href": "03_pca_clusterizacao.html#número-de-grupos-cotovelo-e-silhueta",
+    "title": "Notebook 03 — PCA e clusterização",
+    "section": "2. Número de grupos: cotovelo e silhueta",
+    "text": "2. Número de grupos: cotovelo e silhueta\n\npca_cl = PCA(n_components=cfg.N_PCS_CLUSTER).fit(X_snv)\nZc = pca_cl.transform(X_snv)\n\nks = range(2, cfg.K_MAX + 1)\ninercia, silhueta = [], []\nfor k in ks:\n    km_k = KMeans(n_clusters=k, n_init=10, random_state=cfg.SEED).fit(Zc)\n    inercia.append(km_k.inertia_)\n    silhueta.append(silhouette_score(Zc, km_k.labels_, sample_size=min(5000, len(Zc)), random_state=cfg.SEED))\n\nfig, ax = plt.subplots(1, 2, figsize=(10, 3.5))\nax[0].plot(list(ks), inercia, 'o-'); ax[0].set_xlabel('k'); ax[0].set_ylabel('Inércia'); ax[0].set_title('Cotovelo')\nax[1].plot(list(ks), silhueta, 'o-', color='darkorange'); ax[1].set_xlabel('k'); ax[1].set_ylabel('Silhueta')\nax[1].set_title('Silhueta')\nplt.tight_layout(); utils.salva_figura(fig, '03_cotovelo_silhueta.png'); plt.show()\ndisplay(pd.DataFrame({'k': list(ks), 'inercia': inercia, 'silhueta': silhueta}).round(3))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nk\ninercia\nsilhueta\n\n\n\n\n0\n2\n108036.260\n0.384\n\n\n1\n3\n82582.936\n0.305\n\n\n2\n4\n71210.992\n0.255\n\n\n3\n5\n62909.605\n0.252\n\n\n4\n6\n57443.319\n0.233\n\n\n5\n7\n52881.569\n0.241\n\n\n6\n8\n49024.158\n0.240\n\n\n7\n9\n46524.756\n0.248\n\n\n8\n10\n44111.176\n0.216",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "03 · PCA e clusterização"
+    ]
+  },
+  {
+    "objectID": "03_pca_clusterizacao.html#k-means-final-e-caracterização-dos-grupos",
+    "href": "03_pca_clusterizacao.html#k-means-final-e-caracterização-dos-grupos",
+    "title": "Notebook 03 — PCA e clusterização",
+    "section": "3. K-means final e caracterização dos grupos",
+    "text": "3. K-means final e caracterização dos grupos\n\nkm = KMeans(n_clusters=cfg.K, n_init=10, random_state=cfg.SEED).fit(Zc)\ndf['cluster'] = km.labels_\nprint('Amostras por grupo:'); print(df['cluster'].value_counts().sort_index())\ndisplay(df.groupby('cluster')[cfg.COL_ALVO].describe().round(1))\n\nAmostras por grupo:\ncluster\n0    209\n1    426\n2    490\nName: count, dtype: int64\n\n\n\n\n\n\n\n\n\ncount\nmean\nstd\nmin\n25%\n50%\n75%\nmax\n\n\ncluster\n\n\n\n\n\n\n\n\n\n\n\n\n0\n209.0\n406.6\n213.1\n2.3\n250.0\n409.0\n548.0\n944.0\n\n\n1\n426.0\n196.1\n146.7\n0.0\n90.0\n160.0\n274.2\n758.0\n\n\n2\n490.0\n286.7\n184.0\n2.6\n140.0\n263.0\n379.5\n818.0\n\n\n\n\n\n\n\n\nfig, ax = plt.subplots(1, 2, figsize=(12, 4))\nfor g in range(cfg.K):\n    sel = km.labels_ == g\n    ax[0].scatter(Zc[sel, 0], Zc[sel, 1], s=10, label=f'Grupo {g}')\n    ax[1].plot(wl, d['X_suav'][sel].mean(axis=0), label=f'Grupo {g}')\nax[0].scatter(km.cluster_centers_[:, 0], km.cluster_centers_[:, 1], c='black', marker='x', s=80, label='Centroides')\nax[0].set_xlabel('PC1'); ax[0].set_ylabel('PC2'); ax[0].legend(); ax[0].set_title('Grupos no espaço dos PCs')\nax[1].set_xlabel('Comprimento de onda (nm)'); ax[1].set_ylabel('Absorbância suavizada'); ax[1].legend()\nax[1].set_title('Espectro médio por grupo')\nplt.tight_layout(); utils.salva_figura(fig, '03_clusters.png'); plt.show()\n\ndf.to_pickle(cfg.PASTA / 'df_pp.pkl')\njoblib.dump({'km': km, 'pca': pca_cl, 'n_pcs': cfg.N_PCS_CLUSTER}, cfg.PASTA / 'cluster_model.joblib')\nprint('Salvos: df_pp.pkl (com cluster) e cluster_model.joblib')\n\n\n\n\n\n\n\n\nSalvos: df_pp.pkl (com cluster) e cluster_model.joblib",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "03 · PCA e clusterização"
+    ]
+  },
+  {
+    "objectID": "05_visualizacao_predicao.html",
+    "href": "05_visualizacao_predicao.html",
+    "title": "Notebook 05 — Visualização, interpretação e predição de amostras novas",
+    "section": "",
+    "text": "Mostra o desempenho na validação, interpreta os modelos (coeficientes, VIP e importância), prediz amostras novas e verifica se elas estão no domínio de aplicação (T² e Q).\nEntradas: modelo_solo.joblib, predicoes_validacao.csv e, opcionalmente, um CSV de amostras novas · Saídas: predicoes_novas_amostras.csv (quando configurado), figuras 05_*.png\nimport warnings; warnings.filterwarnings('ignore')\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nfrom IPython.display import display\nimport config as cfg, utils\n\ncfg.PASTA_FIG.mkdir(parents=True, exist_ok=True)\nimport joblib\n\nmodelo = joblib.load(cfg.PASTA / 'modelo_solo.joblib')\npred = pd.read_csv(cfg.PASTA / 'predicoes_validacao.csv')\nalvo = modelo['alvo']\nprint('Modelo:', modelo['tratamento'], '|', modelo['nlv'], 'VLs | alvo:', alvo)\n\nModelo: sg | 17 VLs | alvo: Clay_gkg",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "05 · Visualização e predição"
+    ]
+  },
+  {
+    "objectID": "05_visualizacao_predicao.html#observado-predito-validação",
+    "href": "05_visualizacao_predicao.html#observado-predito-validação",
+    "title": "Notebook 05 — Visualização, interpretação e predição de amostras novas",
+    "section": "1. Observado × predito (validação)",
+    "text": "1. Observado × predito (validação)\n\nfig, ax = plt.subplots(1, 2, figsize=(11, 4.5))\nlim = [pred['observado'].min(), pred['observado'].max()]\nfor a, col, nome in zip(ax, ['pred_PLSR', 'pred_RF'], ['PLSR', 'Random Forest']):\n    m = utils.avalia(pred['observado'], pred[col])\n    sc = a.scatter(pred['observado'], pred[col], c=pred['cluster'], cmap='viridis', s=14)\n    a.plot(lim, lim, 'k--', lw=1)\n    a.set_xlabel(f'{alvo} observado'); a.set_ylabel(f'{alvo} predito')\n    a.set_title(f\"{nome}: R² {m['R2']:.2f} | RMSE {m['RMSE']:.2f} | RPD {m['RPD']:.2f}\")\nplt.colorbar(sc, ax=ax, label='Grupo')\nutils.salva_figura(fig, '05_observado_predito.png'); plt.show()",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "05 · Visualização e predição"
+    ]
+  },
+  {
+    "objectID": "05_visualizacao_predicao.html#resíduos",
+    "href": "05_visualizacao_predicao.html#resíduos",
+    "title": "Notebook 05 — Visualização, interpretação e predição de amostras novas",
+    "section": "2. Resíduos",
+    "text": "2. Resíduos\n\npred['residuo_PLSR'] = pred['pred_PLSR'] - pred['observado']\nfig, ax = plt.subplots(1, 2, figsize=(11, 3.5))\nax[0].hist(pred['residuo_PLSR'], bins=30, color='steelblue', edgecolor='white')\nax[0].set_xlabel('Resíduo (predito − observado)'); ax[0].set_title('Distribuição dos resíduos (PLSR)')\nax[1].scatter(pred['observado'], pred['residuo_PLSR'], s=10)\nax[1].axhline(0, color='k', lw=1)\nax[1].set_xlabel(f'{alvo} observado'); ax[1].set_ylabel('Resíduo'); ax[1].set_title('Resíduo × observado')\nplt.tight_layout(); plt.show()\n\nrmse_grupo = pred.groupby('cluster').apply(\n    lambda g: pd.Series({'n': len(g), 'RMSE_PLSR': utils.avalia(g['observado'], g['pred_PLSR'])['RMSE'],\n                         'RMSE_RF': utils.avalia(g['observado'], g['pred_RF'])['RMSE']}))\ndisplay(rmse_grupo.round(2))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nn\nRMSE_PLSR\nRMSE_RF\n\n\ncluster\n\n\n\n\n\n\n\n0\n63.0\n158.00\n157.67\n\n\n1\n128.0\n120.54\n122.73\n\n\n2\n147.0\n144.44\n129.32",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "05 · Visualização e predição"
+    ]
+  },
+  {
+    "objectID": "05_visualizacao_predicao.html#interpretação-dos-modelos",
+    "href": "05_visualizacao_predicao.html#interpretação-dos-modelos",
+    "title": "Notebook 05 — Visualização, interpretação e predição de amostras novas",
+    "section": "3. Interpretação dos modelos",
+    "text": "3. Interpretação dos modelos\n\npls, wl_pp = modelo['pls'], modelo['wl_pp']\ncoef = pls.coef_.ravel()\nvip = utils.vip(pls)\n\nfig, ax = plt.subplots(2, 1, figsize=(9, 5.5), sharex=True)\nax[0].plot(wl_pp, coef, color='darkred'); ax[0].axhline(0, color='gray', lw=0.8)\nax[0].set_ylabel('Coeficiente'); ax[0].set_title('PLSR: coeficientes de regressão')\nax[1].plot(wl_pp, vip, color='darkgreen'); ax[1].axhline(1, color='gray', ls='--', lw=1)\nax[1].set_ylabel('VIP'); ax[1].set_xlabel('Comprimento de onda (nm)'); ax[1].set_title('PLSR: VIP (&gt; 1 = banda relevante)')\nplt.tight_layout(); utils.salva_figura(fig, '05_plsr_coef_vip.png'); plt.show()\n\nimp = modelo['rf'].named_steps['rf'].feature_importances_\nfig, ax = plt.subplots(figsize=(8, 3.2))\nax.bar(range(1, len(imp) + 1), imp)\nax.set_xlabel('Componente principal'); ax.set_ylabel('Importância'); ax.set_title('Random Forest: importância dos componentes')\nplt.tight_layout(); utils.salva_figura(fig, '05_rf_importancia.png'); plt.show()",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "05 · Visualização e predição"
+    ]
+  },
+  {
+    "objectID": "05_visualizacao_predicao.html#predição-de-amostras-novas",
+    "href": "05_visualizacao_predicao.html#predição-de-amostras-novas",
+    "title": "Notebook 05 — Visualização, interpretação e predição de amostras novas",
+    "section": "4. Predição de amostras novas",
+    "text": "4. Predição de amostras novas\nAplica o mesmo pré-processamento do modelo, reamostra se a grade espectral for diferente e calcula T² e Q com o PCA do domínio ajustado na calibração.\n\nif cfg.ARQUIVO_NOVAS is None:\n    print('Nenhum arquivo de amostras novas configurado; etapa de predição ignorada.')\nelse:\n    novas = pd.read_csv(cfg.ARQUIVO_NOVAS, encoding=cfg.ENCODING)\n    cols_n, _ = utils.identificar_colunas(novas, cfg.PREFIXO)\n    wl_n = utils.comprimentos_onda(cols_n, cfg.PREFIXO)\n    wl_cal = modelo['wl']\n    Xn = novas[cols_n].to_numpy(dtype=float)\n    if len(wl_n) != len(wl_cal) or not np.allclose(wl_n, wl_cal):\n        Xn = utils.reamostra(Xn, wl_n, wl_cal)\n        print('Espectros reamostrados para a grade da calibração')\n\n    _, Xn_pp = utils.preprocessa(Xn, wl_cal, modelo['tratamento'])\n    t2_n, q_n = utils.t2_q(modelo['pca_dom'], Xn_pp)\n\n    saida = pd.DataFrame({'id': novas[cfg.COL_ID],\n                          f'{alvo}_PLSR': modelo['pls'].predict(Xn_pp).ravel(),\n                          f'{alvo}_RF': modelo['rf'].predict(Xn_pp),\n                          'T2': t2_n, 'Q': q_n})\n    saida['dentro_dominio'] = (saida['T2'] &lt;= modelo['lim_t2']) & (saida['Q'] &lt;= modelo['lim_q'])\n    saida.to_csv(cfg.PASTA / 'predicoes_novas_amostras.csv', index=False)\n    print(f\"Dentro do domínio: {saida['dentro_dominio'].sum()} de {len(saida)}\")\n    display(saida.head(10).round(3))\n\nNenhum arquivo de amostras novas configurado; etapa de predição ignorada.",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "05 · Visualização e predição"
+    ]
+  },
+  {
+    "objectID": "05_visualizacao_predicao.html#novas-amostras-sobre-a-nuvem-de-calibração",
+    "href": "05_visualizacao_predicao.html#novas-amostras-sobre-a-nuvem-de-calibração",
+    "title": "Notebook 05 — Visualização, interpretação e predição de amostras novas",
+    "section": "5. Novas amostras sobre a nuvem de calibração",
+    "text": "5. Novas amostras sobre a nuvem de calibração\nEsta visualização só é executada quando ARQUIVO_NOVAS está configurado.\n\nif cfg.ARQUIVO_NOVAS is not None:\n    sc_cal, sc_n = modelo['escores_cal'], modelo['pca_dom'].transform(Xn_pp)\n    dentro = saida['dentro_dominio'].to_numpy()\n    fig, ax = plt.subplots(1, 2, figsize=(12, 4))\n    ax[0].scatter(sc_cal[:, 0], sc_cal[:, 1], s=8, c='lightgray', label='Calibração')\n    ax[0].scatter(sc_n[dentro, 0], sc_n[dentro, 1], s=20, c='tab:blue', label='Novas (dentro)')\n    ax[0].scatter(sc_n[~dentro, 0], sc_n[~dentro, 1], s=30, c='red', marker='x', label='Novas (fora)')\n    ax[0].set_xlabel('PC1'); ax[0].set_ylabel('PC2'); ax[0].legend(); ax[0].set_title('Escores do PCA do domínio')\n    ax[1].scatter(modelo['t2_cal'], modelo['q_cal'], s=8, c='lightgray', label='Calibração')\n    ax[1].scatter(t2_n, q_n, s=20, c=np.where(dentro, 'tab:blue', 'red'), label='Novas')\n    ax[1].axvline(modelo['lim_t2'], color='red', ls='--', lw=1); ax[1].axhline(modelo['lim_q'], color='red', ls='--', lw=1)\n    ax[1].set_xlabel('T²'); ax[1].set_ylabel('Q'); ax[1].legend(); ax[1].set_title('T² × Q com os limites da calibração')\n    plt.tight_layout(); utils.salva_figura(fig, '05_novas_vs_calibracao.png'); plt.show()\nelse:\n    print('Visualização de novas amostras ignorada: nenhum arquivo foi configurado.')\n\nVisualização de novas amostras ignorada: nenhum arquivo foi configurado.",
+    "crumbs": [
+      "Início",
+      "Notebooks",
+      "05 · Visualização e predição"
+    ]
+  },
+  {
+    "objectID": "codigo.html",
+    "href": "codigo.html",
+    "title": "Código-fonte",
+    "section": "",
+    "text": "Caminhos e parâmetros do dataset e de todas as etapas. Baixar\n\n\nconfig.py\n\n\"\"\"Configuração do pipeline espectral Saturin: caminhos e parâmetros das etapas.\n\nTodos os notebooks importam este arquivo (`import config as cfg`). Para usar outro\nbanco ou mudar uma decisão metodológica, altere aqui e rode os notebooks de novo.\nOs caminhos são relativos à pasta do projeto e os CSVs são lidos em latin1.\n\"\"\"\n\nfrom pathlib import Path\n\n# --- Arquivos ---------------------------------------------------------------\nARQUIVO = Path(\"dados/raw_nir_data_Saturin.csv\")\nARQUIVO_MIR = Path(\"dados/raw_mir_data_Saturin.csv\")\nARQUIVO_NOVAS = None                                # não há amostras sem análise na pasta dados\nENCODING = \"latin1\"\nMAX_AMOSTRAS = 5000                                # 0 = usar todas as amostras\nPASTA = Path(\"resultados\")                          # saídas de cada notebook\nPASTA_FIG = PASTA / \"figuras\"\n\n# --- Colunas ----------------------------------------------------------------\nCOL_ID = \"ID_Unico\"\nCOL_ALVO = \"Clay_gkg\"\nPREFIXO = \"\"                                      # ex.: \"X\" para bandas X350, X351, ...\n\n# --- Reprodutibilidade ------------------------------------------------------------\nSEED = 42\n\n# --- Pré-processamento (notebook 02) -----------------------------------------\nWL_MIN, WL_MAX = 450, 2450     # corte das bordas ruidosas (nm)\nSG_JANELA = 11                 # janela do Savitzky-Golay (nº ímpar de bandas)\nSG_GRAU = 2                    # grau do polinômio do Savitzky-Golay\n\n# --- Outliers (notebook 02) ----------------------------------------------------\nZ_OUTLIER = 3                  # limite do z-score do espectro médio\nN_PCS_OUTLIER = 5              # PCs usados no T² e no Q\nPERC_OUTLIER = 99              # percentil que define os limites de T² e Q\n\n# --- PCA e clusterização (notebook 03) ------------------------------------------\nN_PCS_EXPLORA = 10             # PCs da análise exploratória\nN_PCS_CLUSTER = 5              # PCs usados no k-means\nK_MAX = 10                     # maior k testado no cotovelo e na silhueta\nK = 3                          # número de grupos escolhido\n\n# --- Modelagem (notebook 04) --------------------------------------------------\nTEST_SIZE = 0.3                # fração para validação (divisão estratificada por grupo)\nCV_FOLDS = 10                  # partições da validação cruzada\nMAX_LV = 20                    # maior nº de variáveis latentes testado no PLSR\nTRATAMENTOS = (\"sg\", \"d1\", \"snv\")\nTRATAMENTO_FIXO = None         # None = escolhe pelo menor RMSECV; ou 'sg', 'd1', 'snv'\n\nBUSCA_RF = True                # busca aleatória de hiperparâmetros do Random Forest\nN_ITER_BUSCA = 15              # combinações testadas na busca\nN_ARVORES = 300                # árvores do Random Forest\nN_PCS_RF = 20                  # PCs de entrada do Random Forest quando BUSCA_RF = False\n\n# --- Domínio de aplicação (notebooks 04 e 05) ------------------------------------\nN_PCS_DOMINIO = 5              # PCs do PCA do domínio\nPERC_DOMINIO = 99              # percentil da calibração que define os limites de T² e Q",
+    "crumbs": [
+      "Início",
+      "Código-fonte"
+    ]
+  },
+  {
+    "objectID": "codigo.html#config.py",
+    "href": "codigo.html#config.py",
+    "title": "Código-fonte",
+    "section": "",
+    "text": "Caminhos e parâmetros do dataset e de todas as etapas. Baixar\n\n\nconfig.py\n\n\"\"\"Configuração do pipeline espectral Saturin: caminhos e parâmetros das etapas.\n\nTodos os notebooks importam este arquivo (`import config as cfg`). Para usar outro\nbanco ou mudar uma decisão metodológica, altere aqui e rode os notebooks de novo.\nOs caminhos são relativos à pasta do projeto e os CSVs são lidos em latin1.\n\"\"\"\n\nfrom pathlib import Path\n\n# --- Arquivos ---------------------------------------------------------------\nARQUIVO = Path(\"dados/raw_nir_data_Saturin.csv\")\nARQUIVO_MIR = Path(\"dados/raw_mir_data_Saturin.csv\")\nARQUIVO_NOVAS = None                                # não há amostras sem análise na pasta dados\nENCODING = \"latin1\"\nMAX_AMOSTRAS = 5000                                # 0 = usar todas as amostras\nPASTA = Path(\"resultados\")                          # saídas de cada notebook\nPASTA_FIG = PASTA / \"figuras\"\n\n# --- Colunas ----------------------------------------------------------------\nCOL_ID = \"ID_Unico\"\nCOL_ALVO = \"Clay_gkg\"\nPREFIXO = \"\"                                      # ex.: \"X\" para bandas X350, X351, ...\n\n# --- Reprodutibilidade ------------------------------------------------------------\nSEED = 42\n\n# --- Pré-processamento (notebook 02) -----------------------------------------\nWL_MIN, WL_MAX = 450, 2450     # corte das bordas ruidosas (nm)\nSG_JANELA = 11                 # janela do Savitzky-Golay (nº ímpar de bandas)\nSG_GRAU = 2                    # grau do polinômio do Savitzky-Golay\n\n# --- Outliers (notebook 02) ----------------------------------------------------\nZ_OUTLIER = 3                  # limite do z-score do espectro médio\nN_PCS_OUTLIER = 5              # PCs usados no T² e no Q\nPERC_OUTLIER = 99              # percentil que define os limites de T² e Q\n\n# --- PCA e clusterização (notebook 03) ------------------------------------------\nN_PCS_EXPLORA = 10             # PCs da análise exploratória\nN_PCS_CLUSTER = 5              # PCs usados no k-means\nK_MAX = 10                     # maior k testado no cotovelo e na silhueta\nK = 3                          # número de grupos escolhido\n\n# --- Modelagem (notebook 04) --------------------------------------------------\nTEST_SIZE = 0.3                # fração para validação (divisão estratificada por grupo)\nCV_FOLDS = 10                  # partições da validação cruzada\nMAX_LV = 20                    # maior nº de variáveis latentes testado no PLSR\nTRATAMENTOS = (\"sg\", \"d1\", \"snv\")\nTRATAMENTO_FIXO = None         # None = escolhe pelo menor RMSECV; ou 'sg', 'd1', 'snv'\n\nBUSCA_RF = True                # busca aleatória de hiperparâmetros do Random Forest\nN_ITER_BUSCA = 15              # combinações testadas na busca\nN_ARVORES = 300                # árvores do Random Forest\nN_PCS_RF = 20                  # PCs de entrada do Random Forest quando BUSCA_RF = False\n\n# --- Domínio de aplicação (notebooks 04 e 05) ------------------------------------\nN_PCS_DOMINIO = 5              # PCs do PCA do domínio\nPERC_DOMINIO = 99              # percentil da calibração que define os limites de T² e Q",
+    "crumbs": [
+      "Início",
+      "Código-fonte"
+    ]
+  },
+  {
+    "objectID": "codigo.html#utils.py",
+    "href": "codigo.html#utils.py",
+    "title": "Código-fonte",
+    "section": "utils.py",
+    "text": "utils.py\nBandas, pré-processamento, métricas, T², Q, VIP e reamostragem. Baixar\n\n\nutils.py\n\n\"\"\"Funções do pipeline espectral: leitura, pré-processamento e métricas.\n\nOs valores-padrão dos parâmetros são lidos de config.py **no momento da chamada**:\nse você mudar cfg.WL_MIN no notebook, a próxima chamada já usa o novo valor.\n\"\"\"\n\nimport numpy as np\nfrom scipy.signal import savgol_filter\n\nimport config as cfg\n\nTRATAMENTOS_VALIDOS = (\"abs\", \"sg\", \"d1\", \"snv\")\n\n\n# --- Leitura -----------------------------------------------------------------\n\ndef identificar_colunas(df, prefixo=\"\"):\n    \"\"\"Separa as colunas espectrais (nome = comprimento de onda) das de referência.\n\n    Retorna (cols_esp, cols_ref).\n    \"\"\"\n    def eh_banda(c):\n        nome = str(c)\n        if prefixo and not nome.startswith(prefixo):\n            return False\n        banda = nome[len(prefixo):]\n        try:\n            float(banda)\n        except ValueError:\n            return False\n        return True\n\n    cols_esp = [c for c in df.columns if eh_banda(c)]\n    cols_ref = [c for c in df.columns if c not in cols_esp]\n    return cols_esp, cols_ref\n\n\ndef comprimentos_onda(cols_esp, prefixo=\"\"):\n    \"\"\"Converte os nomes das colunas espectrais em comprimentos de onda (nm).\n\n    Exige ordem crescente: se as colunas estiverem fora de ordem, o erro aparece\n    aqui, e não silenciosamente nos gráficos e nos filtros.\n    \"\"\"\n    if not cols_esp:\n        raise ValueError(\"Nenhuma coluna espectral foi encontrada.\")\n    wl = np.array([float(str(c)[len(prefixo):]) for c in cols_esp])\n    if np.any(np.diff(wl) &lt;= 0):\n        raise ValueError(\"As colunas espectrais precisam estar em ordem crescente de comprimento de onda.\")\n    return wl\n\n\n# --- Pré-processamento ---------------------------------------------------------\n\ndef corta(X, wl, wl_min=None, wl_max=None):\n    \"\"\"Mantém as bandas entre wl_min e wl_max (inclusive). Retorna (wl_cortado, X_cortado).\"\"\"\n    wl_min = cfg.WL_MIN if wl_min is None else wl_min\n    wl_max = cfg.WL_MAX if wl_max is None else wl_max\n    X = np.asarray(X, dtype=float)\n    wl = np.asarray(wl, dtype=float)\n    if X.ndim != 2 or X.shape[1] != len(wl):\n        raise ValueError(\"X deve ter uma coluna para cada comprimento de onda.\")\n    mask = (wl &gt;= wl_min) & (wl &lt;= wl_max)\n    return wl[mask], np.asarray(X, dtype=float)[:, mask]\n\n\ndef snv(A):\n    \"\"\"Standard Normal Variate: centra e escala cada espectro (linha) pela própria média e desvio.\"\"\"\n    A = np.asarray(A, dtype=float)\n    dp = A.std(axis=1, keepdims=True)\n    if np.any(dp &lt;= np.finfo(float).eps):\n        raise ValueError(\"Há espectros constantes (desvio-padrão zero): o SNV não pode ser aplicado a eles.\")\n    return (A - A.mean(axis=1, keepdims=True)) / dp\n\n\ndef preprocessa(X, wl, tratamento=\"snv\", wl_min=None, wl_max=None, janela=None, grau=None):\n    \"\"\"Aplica a sequência de pré-processamento do projeto. Retorna (wl_cortado, X_tratado).\n\n    tratamento:\n      'abs' -&gt; corte + absorbância, log10(1/R)\n      'sg'  -&gt; 'abs' + suavização de Savitzky-Golay\n      'd1'  -&gt; 'abs' + 1ª derivada de Savitzky-Golay\n      'snv' -&gt; 'sg' + SNV\n    \"\"\"\n    if tratamento not in TRATAMENTOS_VALIDOS:\n        raise ValueError(f\"tratamento deve ser um de {TRATAMENTOS_VALIDOS}, não {tratamento!r}\")\n    janela = cfg.SG_JANELA if janela is None else janela\n    grau = cfg.SG_GRAU if grau is None else grau\n\n    wl_c, Xc = corta(X, wl, wl_min, wl_max)\n    A = np.log10(1 / np.clip(Xc, 1e-6, None))\n    if tratamento == \"abs\":\n        return wl_c, A\n    if tratamento == \"d1\":\n        return wl_c, savgol_filter(A, janela, grau, deriv=1, axis=1)\n    A_sg = savgol_filter(A, janela, grau, deriv=0, axis=1)\n    return wl_c, (A_sg if tratamento == \"sg\" else snv(A_sg))\n\n\ndef reamostra(X, wl_de, wl_para):\n    \"\"\"Interpola cada espectro da grade wl_de para a grade wl_para (ex.: outro sensor).\"\"\"\n    X = np.atleast_2d(np.asarray(X, dtype=float))\n    wl_de = np.asarray(wl_de, dtype=float)\n    wl_para = np.asarray(wl_para, dtype=float)\n    if X.shape[1] != len(wl_de):\n        raise ValueError(\"X deve ter uma coluna para cada comprimento de onda de origem.\")\n    if len(wl_de) &lt; 2 or np.any(np.diff(wl_de) &lt;= 0):\n        raise ValueError(\"A grade de origem deve ter pelo menos dois comprimentos crescentes.\")\n    if wl_para.min() &lt; wl_de.min() or wl_para.max() &gt; wl_de.max():\n        raise ValueError(\"A grade de destino deve estar contida na grade de origem.\")\n    return np.vstack([np.interp(wl_para, wl_de, linha) for linha in X])\n\n\n# --- Métricas --------------------------------------------------------------------\n\ndef avalia(y_obs, y_pred):\n    \"\"\"R², RMSE, RPD, RPIQ e viés de um conjunto de predições.\"\"\"\n    y_obs = np.asarray(y_obs, dtype=float).ravel()\n    y_pred = np.asarray(y_pred, dtype=float).ravel()\n    rmse = float(np.sqrt(np.mean((y_obs - y_pred) ** 2)))\n    q75, q25 = np.percentile(y_obs, [75, 25])\n    ss_tot = np.sum((y_obs - y_obs.mean()) ** 2)\n    r2 = np.nan if ss_tot == 0 else 1 - np.sum((y_obs - y_pred) ** 2) / ss_tot\n    return {\n        \"R2\": float(r2),\n        \"RMSE\": rmse,\n        \"RPD\": float(y_obs.std() / rmse),\n        \"RPIQ\": float((q75 - q25) / rmse),\n        \"Viés\": float(np.mean(y_pred - y_obs)),\n    }\n\n\n# --- T², Q e VIP ---------------------------------------------------------------------\n\ndef t2_q(pca, X):\n    \"\"\"T² de Hotelling e resíduo Q de cada amostra em relação a um PCA já ajustado.\"\"\"\n    X = np.asarray(X, dtype=float)\n    sc = pca.transform(X)\n    t2 = ((sc ** 2) / pca.explained_variance_).sum(axis=1)\n    q = ((X - pca.inverse_transform(sc)) ** 2).sum(axis=1)\n    return t2, q\n\n\ndef vip(pls):\n    \"\"\"Variable Importance in Projection de um PLSRegression ajustado (VIP &gt; 1 = banda relevante).\"\"\"\n    t, w, q = pls.x_scores_, pls.x_weights_, pls.y_loadings_\n    p = w.shape[0]\n    ss = (q ** 2).sum(axis=0) * (t ** 2).sum(axis=0)\n    wn = (w / np.linalg.norm(w, axis=0)) ** 2\n    return np.sqrt(p * (wn @ ss) / ss.sum())\n\n\n# --- Figuras --------------------------------------------------------------------\n\ndef salva_figura(fig, nome):\n    \"\"\"Salva a figura em resultados/figuras/ (PNG, 150 dpi) e devolve o caminho.\"\"\"\n    cfg.PASTA_FIG.mkdir(parents=True, exist_ok=True)\n    caminho = cfg.PASTA_FIG / nome\n    fig.savefig(caminho, dpi=150, bbox_inches=\"tight\")\n    return caminho",
+    "crumbs": [
+      "Início",
+      "Código-fonte"
+    ]
+  },
+  {
+    "objectID": "codigo.html#gerar_dados_sinteticos.py",
+    "href": "codigo.html#gerar_dados_sinteticos.py",
+    "title": "Código-fonte",
+    "section": "gerar_dados_sinteticos.py",
+    "text": "gerar_dados_sinteticos.py\nGera um banco sintético no formato da BSSL para praticar. Baixar\n\n\ngerar_dados_sinteticos.py\n\n\"\"\"Gera um banco sintético no formato da BSSL para praticar sem o banco real.\n\n    python gerar_dados_sinteticos.py\n\nCria, na pasta dados/:\n  bssl.csv           900 amostras: id, argila, mo e 431 bandas (350 a 2500 nm, passo de 5 nm)\n  novas_amostras.csv 50 amostras novas (id e bandas), da mesma distribuição, sem análise\n\nComo os espectros foram construídos (para saber o que esperar dos resultados):\n  - reflectância crescente com o comprimento de onda, entre ~0,06 e ~0,5;\n  - feições de absorção simuladas apenas perto de 1400, 1900 e 2200 nm, mais profundas\n    quanto maior a argila (relação praticamente linear em absorbância);\n  - espalhamento e matéria orgânica (mo) escurecem o espectro inteiro de forma\n    multiplicativa, o que vira um deslocamento constante em absorbância (o SNV remove);\n  - ruído baixo, amplificado nas bordas (abaixo de 450 e acima de 2450 nm);\n  - 40 amostras sem argila e 8 espectros anômalos de propósito (S0000 a S0007).\n\nOs dados são \"bem comportados\" de propósito: servem para ver o efeito de cada etapa,\ne os números obtidos com eles NÃO são resultados científicos.\n\"\"\"\n\nfrom pathlib import Path\n\nimport numpy as np\nimport pandas as pd\n\nimport config as cfg\n\nN_AMOSTRAS = 900\nN_NOVAS = 50\nN_ANOMALOS = 8\nN_SEM_ARGILA = 40\nWL = np.arange(350, 2501, 5)              # 431 bandas\n\n\ndef _gauss(centro, largura):\n    return np.exp(-0.5 * ((WL - centro) / largura) ** 2)\n\n\ndef gerar_espectros(rng, n):\n    \"\"\"Atributos e reflectâncias de n amostras normais.\"\"\"\n    argila = np.clip(rng.beta(1.5, 2.6, n) * 100, 1.0, 99.0)\n    mo = rng.gamma(3.3, 6.0, n)\n\n    # forma geral: reflectância que cresce com o comprimento de onda\n    base = 0.10 + 0.32 * (1 - np.exp(-(WL - 330) / 650))\n    # feições ligadas à argila (OH e água em 1400 e 1900 nm; Al-OH em 2200 nm)\n    feicoes = 0.15 * _gauss(1415, 30) + 0.32 * _gauss(1915, 45) + 0.24 * _gauss(2205, 30)\n    absorcao = (argila / 100)[:, None] * feicoes[None, :]\n    # espalhamento e matéria orgânica: fator multiplicativo no espectro inteiro\n    escurecimento = np.exp(-0.013 * mo + rng.normal(0, 0.12, n))\n    R = base[None, :] * np.exp(-absorcao) * escurecimento[:, None]\n\n    ruido = np.where((WL &lt; 450) | (WL &gt; 2450), 0.010, 0.0015)\n    R = R + rng.normal(0, 1, R.shape) * ruido[None, :]\n    # erro do laboratório: a argila \"medida\" difere um pouco da que gerou o espectro\n    argila_medida = np.clip(argila + rng.normal(0, 2.8, n), 0.5, 100)\n    return np.clip(R, 0.01, 1.0), argila_medida, mo\n\n\ndef main():\n    rng = np.random.default_rng(cfg.SEED)\n    R, argila, mo = gerar_espectros(rng, N_AMOSTRAS)\n\n    # espectros anômalos (reflectâncias altas e formas irregulares) nas primeiras linhas\n    R[:N_ANOMALOS] = rng.uniform(0.05, 0.9, (N_ANOMALOS, len(WL)))\n    # atributo-alvo faltante em 40 amostras normais\n    argila = argila.astype(float)\n    argila[rng.choice(np.arange(N_ANOMALOS, N_AMOSTRAS), N_SEM_ARGILA, replace=False)] = np.nan\n\n    df = pd.DataFrame(R.round(5), columns=[str(w) for w in WL])\n    df.insert(0, \"mo\", mo.round(2))\n    df.insert(0, \"argila\", np.round(argila, 2))\n    df.insert(0, \"id\", [f\"S{i:04d}\" for i in range(N_AMOSTRAS)])\n\n    Rn, _, _ = gerar_espectros(np.random.default_rng(cfg.SEED + 1), N_NOVAS)\n    novas = pd.DataFrame(Rn.round(5), columns=[str(w) for w in WL])\n    novas.insert(0, \"id\", [f\"N{i:04d}\" for i in range(N_NOVAS)])\n\n    Path(cfg.ARQUIVO).parent.mkdir(parents=True, exist_ok=True)\n    df.to_csv(cfg.ARQUIVO, index=False)\n    novas.to_csv(cfg.ARQUIVO_NOVAS, index=False)\n    print(f\"{cfg.ARQUIVO}: {df.shape[0]} amostras, {len(WL)} bandas ({WL[0]}-{WL[-1]} nm), \"\n          f\"{df['argila'].isna().sum()} sem {cfg.COL_ALVO}, {N_ANOMALOS} espectros anômalos\")\n    print(f\"{cfg.ARQUIVO_NOVAS}: {novas.shape[0]} amostras novas\")\n\n\nif __name__ == \"__main__\":\n    main()",
+    "crumbs": [
+      "Início",
+      "Código-fonte"
+    ]
+  }
+]
